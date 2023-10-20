@@ -1,0 +1,13 @@
+I have researched some applications that can be used for building a 3d model here are findings
+1)We can use agisoft for mapping the images and here is the video link of how it is done.
+https://www.youtube.com/watch?v=je79gV8HsZI&t=463s
+2)we can use OpenDroneMap that is an alternativ which can be used for mapping the images and building a 3-d model.
+here is the video link of how it is done:  https://www.youtube.com/watch?v=bmlInulErJI
+and here is the doocumentation of open drone map
+https://docs.opendronemap.org/installation/
+It also contains the installation of it
+Open drone Map is in development phase and I think it is providing more features compared to Agisoft and is more user friendly
+
+
+
+
