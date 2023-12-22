@@ -1,0 +1,80 @@
+\chapter{compact-\/ariel-\/system}
+\hypertarget{md_compact-ariel-system_2README}{}\label{md_compact-ariel-system_2README}\index{compact-\/ariel-\/system@{compact-\/ariel-\/system}}
+\label{md_compact-ariel-system_2README_autotoc_md0}%
+\Hypertarget{md_compact-ariel-system_2README_autotoc_md0}%
+Create 3D model of building integrating room data such as temperature, humidity etc\hypertarget{md_compact-ariel-system_2README_autotoc_md1}{}\doxysection{\texorpdfstring{Sensor Data Acquisition}{Sensor Data Acquisition}}\label{md_compact-ariel-system_2README_autotoc_md1}
+Captures the sensor data (co2, humidity, temperature and occupancy count) and store them to the google sheets.\hypertarget{md_compact-ariel-system_2README_autotoc_md2}{}\doxysubsection{\texorpdfstring{Setup}{Setup}}\label{md_compact-ariel-system_2README_autotoc_md2}
+
+\begin{DoxyItemize}
+\item Attach the SCD40 and MLX90640 sensors to the Raspberry Pi hub. Use the pin \#3 \& \#5 for data and clock respectively.
+\item Please add the code from sensor folder to the raspberry pi hub and setup the code.
+\end{DoxyItemize}\hypertarget{md_compact-ariel-system_2README_autotoc_md3}{}\doxysubsection{\texorpdfstring{Token Generation}{Token Generation}}\label{md_compact-ariel-system_2README_autotoc_md3}
+
+\begin{DoxyItemize}
+\item Please visit GCC (\href{https://console.cloud.google.com/}{\texttt{ https\+://console.\+cloud.\+google.\+com/}}).
+\item Login or create user on Google Cloud Console (GCC).
+\item Enable Google Sheets API service.
+\item Complete the process and create a credentials.\+json file.
+\item Move credentials.\+json file with the other code
+\item When running the code, you need to complete the authentication flow. This will generate the token.\+json file
+\end{DoxyItemize}
+
+Visit this site for detailed step by step process\+: \href{https://developers.google.com/sheets/api/quickstart/python}{\texttt{ https\+://developers.\+google.\+com/sheets/api/quickstart/python}}\hypertarget{md_compact-ariel-system_2README_autotoc_md4}{}\doxysubsection{\texorpdfstring{Google Sheets}{Google Sheets}}\label{md_compact-ariel-system_2README_autotoc_md4}
+We will use google sheets to capture the data. Follow below steps to configure google sheets with the code.
+\begin{DoxyItemize}
+\item Create a Google sheets with the same email that was used for token generation.
+\item DO NOT RENAME the sheet name and keep it default i.\+e. "{}\+Sheet1"{}
+\item Added following columns in the mentioned order\+: \mbox{[}timestamp, building\+\_\+name, floor, room\+\_\+no, co2, temperature, humidity, occupancy\+\_\+count\mbox{]}
+\item Update the google sheet ID in the \doxylink{store__sensor__data_8py}{store\+\_\+sensor\+\_\+data.\+py} file wih your sheet ID.
+\end{DoxyItemize}\hypertarget{md_compact-ariel-system_2README_autotoc_md5}{}\doxysubsection{\texorpdfstring{Installation}{Installation}}\label{md_compact-ariel-system_2README_autotoc_md5}
+
+\begin{DoxyItemize}
+\item Install requirements from the requirements.\+txt 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{pip3\ install\ -\/r\ requirements.txt}
+
+\end{DoxyCode}
+
+\end{DoxyItemize}\hypertarget{md_compact-ariel-system_2README_autotoc_md6}{}\doxysubsection{\texorpdfstring{Data Capturing}{Data Capturing}}\label{md_compact-ariel-system_2README_autotoc_md6}
+
+\begin{DoxyItemize}
+\item Run the script using following command 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{python3\ store\_sensor\_data.py}
+
+\end{DoxyCode}
+ Once you follow the steps above, you\textquotesingle{}ll find sensor data being captured in your Google Sheets.
+\end{DoxyItemize}\hypertarget{md_compact-ariel-system_2README_autotoc_md7}{}\doxysection{\texorpdfstring{3D model and generating a Digital Twin}{3D model and generating a Digital Twin}}\label{md_compact-ariel-system_2README_autotoc_md7}
+\hypertarget{md_compact-ariel-system_2README_autotoc_md8}{}\doxysubsection{\texorpdfstring{Taking videos and Photos for building a 3d model}{Taking videos and Photos for building a 3d model}}\label{md_compact-ariel-system_2README_autotoc_md8}
+
+\begin{DoxyItemize}
+\item We are required to create a game in Unity using a 3d model which we will be building in the Agisoft Metashape. The Model is built by taking videos and photos from a drone which was flown on the first Sunday of December 2023
+\item We have automated the drone flight path using an application Drone Link, which enables a user to create or fix a path that a drone follows to take videos and photos
+\item After taking the required photos and videos we need to process the videos to get the videos to be transformed into frames.
+\item After creating frames for the entire video that is taken by the drone we will be giving the set of frames that are required to build a 3d model to Agisoft Meta shape.
+\end{DoxyItemize}\hypertarget{md_compact-ariel-system_2README_autotoc_md9}{}\doxysubsection{\texorpdfstring{Processing the 3d model to a finished product\+:}{Processing the 3d model to a finished product\+:}}\label{md_compact-ariel-system_2README_autotoc_md9}
+
+\begin{DoxyItemize}
+\item After creating a 3d model, we will import the 3d model into the Blender to preprocess and fix any issues related to texture and color correction.
+\item After doing the changes, we will save and export the model into a Unity.
+\end{DoxyItemize}\hypertarget{md_compact-ariel-system_2README_autotoc_md10}{}\doxysubsection{\texorpdfstring{Working on Unity to Build the Game/ Digital Twin\+:}{Working on Unity to Build the Game/ Digital Twin\+:}}\label{md_compact-ariel-system_2README_autotoc_md10}
+
+\begin{DoxyItemize}
+\item After doing the required refinements to the 3d model we import the 3d model which is .obj file onto a Unity game space.
+\item The Unity namespace is a 3d space where we can create we need to drag the 3d model into the gamespace, where we will be scaling the model into your requirements.
+\item After dragging and dropping the model into the 3d space we will need to create a few game objects.
+\end{DoxyItemize}\hypertarget{md_compact-ariel-system_2README_autotoc_md11}{}\doxysubsection{\texorpdfstring{Creating game objects on the 3d model}{Creating game objects on the 3d model}}\label{md_compact-ariel-system_2README_autotoc_md11}
+
+\begin{DoxyItemize}
+\item The game objects are what will be used to make your model interactive to your inputs.
+\item There are 3 game objects mainly that you are needed to create namely Directional lighting, Camera, User\+Interactive Canvas Input\+Field.
+\item \#\#\#\# Directional Lighting\+: It is used to brighten the areas that you want. I have placed 3 Directional Lighting two at the front of the 3d model and one to the side of the building.
+\item \#\#\#\# Camera\+: Camera is the one of the main components that is used to fix the point of view towards the building. The Camera needs to be placed accurately as we would be attaching c\# code to it for moving around the 3d model. We will be adding facilities like zooming onto a 3d model, zooming out, moving right and left on the 3d model, moving up and down on the 3d model. It is important to note that we would be also using also using the mouse pointer to set the point of view.
+\item \#\#\#\# UI Input Text field\+: This is used to display the text that is obtained after getting making an API call onto the Google Sheets API to fetch the the last row data.\+It is displayed in the format that is mentioned in the Test1 c\# code in the Scripts folder of the repository. It is also showing the the units with the data. The data which is fetched in the form of .JSON format is converted into a string and then it is displayed in the form of key object pair. Make sure to place the input Text\+Field at the right place so that it does not hamper your view in the build.
+\end{DoxyItemize}\hypertarget{md_compact-ariel-system_2README_autotoc_md12}{}\doxysubsection{\texorpdfstring{Using Scripts\+:}{Using Scripts\+:}}\label{md_compact-ariel-system_2README_autotoc_md12}
+Scripts are generally used to add functionalities to the game objects . These scripts are written in c\# code which is supported by the Unity. The scripts that are used in this project is mainly \doxylink{classFreeFlyCamera}{Free\+Fly\+Camera} which is used to add the functionality to the Camera and Test1 which is used to display the text onto the input Text\+Field.\hypertarget{md_compact-ariel-system_2README_autotoc_md13}{}\doxysubsection{\texorpdfstring{Downloading Unity and Running the Build file\+:}{Downloading Unity and Running the Build file\+:}}\label{md_compact-ariel-system_2README_autotoc_md13}
+
+\begin{DoxyItemize}
+\item For downloading the Unity onto your device please use this link \href{https://unity.com/download}{\texttt{ https\+://unity.\+com/download}}, which will also download VS code if it is not installed before. After downloading the Unity it will ask to even download Unity Hub to create and manage different Unity Projects. After downloading Unity and Unity\+Hub successfully, now create a New Unity Project and create sub folders like Assets. In the Assets folder create sub folders like Model and Scripts and import the files into the folders respectively.
+\item After setting and following all the steps above, now to is the time to build and run the game. Go to the menu and select Build Option. After selecting build, you will enter into a drop box with options. Select the option ”\+Build and Run” to save and run the game. If there are no errors the game will run and update the values which is received from the google sheets 
+\end{DoxyItemize}

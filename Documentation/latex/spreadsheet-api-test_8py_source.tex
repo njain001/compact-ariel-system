@@ -1,0 +1,91 @@
+\doxysection{spreadsheet-\/api-\/test.py}
+\hypertarget{spreadsheet-api-test_8py_source}{}\label{spreadsheet-api-test_8py_source}\index{compact-\/ariel-\/system/spreadsheet-\/api-\/test.py@{compact-\/ariel-\/system/spreadsheet-\/api-\/test.py}}
+\mbox{\hyperlink{spreadsheet-api-test_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00001}\mbox{\hyperlink{namespacespreadsheet-api-test}{00001}}\ \textcolor{keyword}{import}\ time}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00002}00002\ \textcolor{keyword}{import}\ os.path}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00003}00003\ \textcolor{keyword}{import}\ datetime}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00004}00004\ \textcolor{keyword}{import}\ json}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00005}00005\ }
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00006}00006\ \textcolor{keyword}{import}\ google.auth\ \ \textcolor{comment}{\#\ Google\ Authentication\ Library}}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00007}00007\ \textcolor{keyword}{from}\ google.auth.transport.requests\ \textcolor{keyword}{import}\ Request}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00008}00008\ \textcolor{keyword}{from}\ google.oauth2.credentials\ \textcolor{keyword}{import}\ Credentials}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00009}00009\ \textcolor{keyword}{from}\ google\_auth\_oauthlib.flow\ \textcolor{keyword}{import}\ InstalledAppFlow}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00010}00010\ \textcolor{keyword}{from}\ googleapiclient.discovery\ \textcolor{keyword}{import}\ build\ \ \textcolor{comment}{\#\ Google\ API\ Client\ Library}}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00011}00011\ \textcolor{keyword}{from}\ googleapiclient.errors\ \textcolor{keyword}{import}\ HttpError}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00013}\mbox{\hyperlink{namespacegoogle__sheets__updater}{00013}}\ }
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00018}\mbox{\hyperlink{namespacespreadsheet-api-test_a5f3599119abf69e96e9c8276bd5b23a6}{00018}}\ SAMPLE\_SPREADSHEET\_ID\ =\ \textcolor{stringliteral}{'your\_spreadsheet\_id'}}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00022}\mbox{\hyperlink{namespacespreadsheet-api-test_a7d8600d6cc9db36606f3941239768767}{00022}}\ SAMPLE\_RANGE\_NAME\ =\ \textcolor{stringliteral}{'Sheet1!A:G'}}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00026}\mbox{\hyperlink{namespacespreadsheet-api-test_ae2af57412ac9a4c679a7391b9deafbd5}{00026}}\ scope\ =\ [\textcolor{stringliteral}{'https://www.googleapis.com/auth/spreadsheets'}]}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00029}\mbox{\hyperlink{namespacespreadsheet-api-test_afc267715154f290539a587a60e622966}{00029}}\ creds\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00030}00030\ \textcolor{keywordflow}{if}\ os.path.exists(\textcolor{stringliteral}{'token.json'}):}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00031}00031\ \ \ \ \ creds\ =\ Credentials.from\_authorized\_user\_file(\textcolor{stringliteral}{'token.json'},\ scope)}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00034}00034\ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ creds\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{not}\ creds.valid:}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00035}00035\ \ \ \ \ \textcolor{keywordflow}{if}\ creds\ \textcolor{keywordflow}{and}\ creds.expired\ \textcolor{keywordflow}{and}\ creds.refresh\_token:}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00036}00036\ \ \ \ \ \ \ \ \ creds.refresh(Request())}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00037}00037\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00038}\mbox{\hyperlink{namespacespreadsheet-api-test_a06702067bc05fe35e4ffaf50f66983f1}{00038}}\ \ \ \ \ \ \ \ \ flow\ =\ InstalledAppFlow.from\_client\_secrets\_file(\textcolor{stringliteral}{'credentials.json'},\ scope)}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00039}00039\ \ \ \ \ \ \ \ \ creds\ =\ flow.run\_local\_server(port=0)}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00040}00040\ \ \ \ \ \textcolor{keyword}{with}\ open(\textcolor{stringliteral}{'token.json'},\ \textcolor{stringliteral}{'w'})\ \textcolor{keyword}{as}\ token:}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00041}00041\ \ \ \ \ \ \ \ \ token.write(creds.to\_json())}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00050}\mbox{\hyperlink{namespacespreadsheet-api-test_af07a37073835d6b9a63e003d9abb3536}{00050}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacespreadsheet-api-test_af07a37073835d6b9a63e003d9abb3536}{append\_values}}(spreadsheet\_id,\ range\_name,\ value\_input\_option,\ \_values,\ creds):}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00051}00051\ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00052}00052\ \ \ \ \ \ \ \ \ service\ =\ build(\textcolor{stringliteral}{'sheets'},\ \textcolor{stringliteral}{'v4'},\ credentials=creds)}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00054}00054\ \ \ \ \ \ \ \ \ body\ =\ \{}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00055}00055\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'values'}:\ \_values}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00056}00056\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00057}00057\ \ \ \ \ \ \ \ \ result\ =\ service.spreadsheets().\mbox{\hyperlink{namespacespreadsheet-api-test_acbe990a528221ab6d694c4a87620ac01}{values}}().append(}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00058}00058\ \ \ \ \ \ \ \ \ \ \ \ \ spreadsheetId=spreadsheet\_id,}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00059}00059\ \ \ \ \ \ \ \ \ \ \ \ \ range=range\_name,}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00060}00060\ \ \ \ \ \ \ \ \ \ \ \ \ valueInputOption=value\_input\_option,}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00061}00061\ \ \ \ \ \ \ \ \ \ \ \ \ insertDataOption=\textcolor{stringliteral}{"{}INSERT\_ROWS"{}},}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ body=body}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00063}00063\ \ \ \ \ \ \ \ \ ).execute()}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00064}00064\ }
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00065}00065\ \ \ \ \ \ \ \ \ print(f\textcolor{stringliteral}{"{}\{(result.get('updates').get('updatedCells'))\}\ cells\ appended."{}})}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00066}00066\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00067}00067\ }
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00068}00068\ \ \ \ \ \textcolor{keywordflow}{except}\ HttpError\ \textcolor{keyword}{as}\ error:}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00069}00069\ \ \ \ \ \ \ \ \ print(f\textcolor{stringliteral}{"{}An\ error\ occurred:\ \{error\}"{}})}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00070}00070\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ error}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00075}00075\ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00076}\mbox{\hyperlink{namespacespreadsheet-api-test_a520cf63710e078c5ec9877502eec2222}{00076}}\ \ \ \ \ service\ =\ build(\textcolor{stringliteral}{'sheets'},\ \textcolor{stringliteral}{'v4'},\ credentials=creds)}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00078}00078\ \ \ \ \ \textcolor{comment}{\#\ Data\ to\ append.\ Replace\ with\ your\ actual\ data\ structure.}}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00079}\mbox{\hyperlink{namespacespreadsheet-api-test_acbe990a528221ab6d694c4a87620ac01}{00079}}\ \ \ \ \ values\ =\ [[str(datetime.datetime.now()),\ \textcolor{stringliteral}{"{}Sample\_building"{}},\ \textcolor{stringliteral}{'1'},\ \textcolor{stringliteral}{'101'},\ 1000,\ 100,\ 23]]}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00080}00080\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00081}00081\ \ \ \ \ \textcolor{comment}{\#\ Append\ the\ data\ to\ the\ sheet.}}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00082}00082\ \ \ \ \ \mbox{\hyperlink{namespacespreadsheet-api-test_af07a37073835d6b9a63e003d9abb3536}{append\_values}}(SAMPLE\_SPREADSHEET\_ID,\ \textcolor{stringliteral}{'Sheet1'},\ \textcolor{stringliteral}{'USER\_ENTERED'},\ values,\ creds)}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00083}00083\ }
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00084}00084\ \ \ \ \ \textcolor{comment}{\#\ Fetch\ and\ print\ the\ updated\ data\ from\ the\ sheet\ for\ verification.}}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00085}\mbox{\hyperlink{namespacespreadsheet-api-test_af76c8d45e41fb49c5509f25765a7c102}{00085}}\ \ \ \ \ sheet\ =\ service.spreadsheets()}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00086}\mbox{\hyperlink{namespacespreadsheet-api-test_afb73e630afbb320ed28dea65d0a868ba}{00086}}\ \ \ \ \ result\ =\ sheet.values().get(spreadsheetId=SAMPLE\_SPREADSHEET\_ID,\ range=SAMPLE\_RANGE\_NAME).execute()}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00087}00087\ \ \ \ \ values\ =\ result.get(\textcolor{stringliteral}{'values'},\ [])}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00088}00088\ }
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00089}00089\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ values:}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00090}00090\ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{'No\ data\ found.'})}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00091}00091\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00092}00092\ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{'Name,\ Major:'})}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00093}00093\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ row\ \textcolor{keywordflow}{in}\ values:}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00094}00094\ \ \ \ \ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{'\%s,\ \%s'}\ \%\ (row[0],\ row[4]))}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00095}00095\ }
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00096}00096\ \textcolor{keywordflow}{except}\ HttpError\ \textcolor{keyword}{as}\ err:}
+\DoxyCodeLine{\Hypertarget{spreadsheet-api-test_8py_source_l00097}00097\ \ \ \ \ print(err)}
+
+\end{DoxyCode}

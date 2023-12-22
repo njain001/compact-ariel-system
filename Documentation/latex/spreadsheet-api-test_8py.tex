@@ -1,0 +1,35 @@
+\doxysection{compact-\/ariel-\/system/spreadsheet-\/api-\/test.py File Reference}
+\hypertarget{spreadsheet-api-test_8py}{}\label{spreadsheet-api-test_8py}\index{compact-\/ariel-\/system/spreadsheet-\/api-\/test.py@{compact-\/ariel-\/system/spreadsheet-\/api-\/test.py}}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacespreadsheet-api-test}{spreadsheet-\/api-\/test}}
+\item 
+namespace \mbox{\hyperlink{namespacegoogle__sheets__updater}{google\+\_\+sheets\+\_\+updater}}
+\begin{DoxyCompactList}\small\item\em This script is used for appending and retrieving data from a Google Sheet using the Google Sheets API. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacespreadsheet-api-test_af07a37073835d6b9a63e003d9abb3536}{spreadsheet-\/api-\/test.\+append\+\_\+values}} (spreadsheet\+\_\+id, range\+\_\+name, value\+\_\+input\+\_\+option, \+\_\+values, \mbox{\hyperlink{namespacespreadsheet-api-test_afc267715154f290539a587a60e622966}{creds}})
+\begin{DoxyCompactList}\small\item\em Appends values to a specified range within a Google Sheet. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+str \mbox{\hyperlink{namespacespreadsheet-api-test_a5f3599119abf69e96e9c8276bd5b23a6}{spreadsheet-\/api-\/test.\+SAMPLE\+\_\+\+SPREADSHEET\+\_\+\+ID}} = \textquotesingle{}your\+\_\+spreadsheet\+\_\+id\textquotesingle{}
+\begin{DoxyCompactList}\small\item\em The ID of the Google Spreadsheet you wish to interact with. \end{DoxyCompactList}\item 
+str \mbox{\hyperlink{namespacespreadsheet-api-test_a7d8600d6cc9db36606f3941239768767}{spreadsheet-\/api-\/test.\+SAMPLE\+\_\+\+RANGE\+\_\+\+NAME}} = \textquotesingle{}Sheet1!\+A\+:G\textquotesingle{}
+\begin{DoxyCompactList}\small\item\em The range of cells in the sheet to interact with. \end{DoxyCompactList}\item 
+list \mbox{\hyperlink{namespacespreadsheet-api-test_ae2af57412ac9a4c679a7391b9deafbd5}{spreadsheet-\/api-\/test.\+scope}} = \mbox{[}\textquotesingle{}https\+://www.\+googleapis.\+com/auth/spreadsheets\textquotesingle{}\mbox{]}
+\begin{DoxyCompactList}\small\item\em Scopes define the level of access required for the Google Sheets API. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacespreadsheet-api-test_afc267715154f290539a587a60e622966}{spreadsheet-\/api-\/test.\+creds}} = None
+\begin{DoxyCompactList}\small\item\em Attempts to load existing credentials, or generate new ones if necessary. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacespreadsheet-api-test_a06702067bc05fe35e4ffaf50f66983f1}{spreadsheet-\/api-\/test.\+flow}} = Installed\+App\+Flow.\+from\+\_\+client\+\_\+secrets\+\_\+file(\textquotesingle{}credentials.\+json\textquotesingle{}, \mbox{\hyperlink{namespacespreadsheet-api-test_ae2af57412ac9a4c679a7391b9deafbd5}{scope}})
+\begin{DoxyCompactList}\small\item\em Authenticates the user and refreshes credentials if necessary. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacespreadsheet-api-test_a520cf63710e078c5ec9877502eec2222}{spreadsheet-\/api-\/test.\+service}} = build(\textquotesingle{}sheets\textquotesingle{}, \textquotesingle{}v4\textquotesingle{}, credentials=\mbox{\hyperlink{namespacespreadsheet-api-test_afc267715154f290539a587a60e622966}{creds}})
+\begin{DoxyCompactList}\small\item\em Main execution block. \end{DoxyCompactList}\item 
+list \mbox{\hyperlink{namespacespreadsheet-api-test_acbe990a528221ab6d694c4a87620ac01}{spreadsheet-\/api-\/test.\+values}} = \mbox{[}\mbox{[}str(datetime.\+datetime.\+now()), "{}Sample\+\_\+building"{}, \textquotesingle{}1\textquotesingle{}, \textquotesingle{}101\textquotesingle{}, 1000, 100, 23\mbox{]}\mbox{]}
+\item 
+\mbox{\hyperlink{namespacespreadsheet-api-test_af76c8d45e41fb49c5509f25765a7c102}{spreadsheet-\/api-\/test.\+sheet}} = service.\+spreadsheets()
+\item 
+list \mbox{\hyperlink{namespacespreadsheet-api-test_afb73e630afbb320ed28dea65d0a868ba}{spreadsheet-\/api-\/test.\+result}} = sheet.\+values().get(spreadsheet\+Id=\mbox{\hyperlink{namespacespreadsheet-api-test_a5f3599119abf69e96e9c8276bd5b23a6}{SAMPLE\+\_\+\+SPREADSHEET\+\_\+\+ID}}, range=\mbox{\hyperlink{namespacespreadsheet-api-test_a7d8600d6cc9db36606f3941239768767}{SAMPLE\+\_\+\+RANGE\+\_\+\+NAME}}).execute()
+\end{DoxyCompactItemize}

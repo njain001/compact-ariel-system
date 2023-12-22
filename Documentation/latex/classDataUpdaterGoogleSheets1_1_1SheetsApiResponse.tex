@@ -1,0 +1,100 @@
+\doxysection{Data\+Updater\+Google\+Sheets1.\+Sheets\+Api\+Response Class Reference}
+\hypertarget{classDataUpdaterGoogleSheets1_1_1SheetsApiResponse}{}\label{classDataUpdaterGoogleSheets1_1_1SheetsApiResponse}\index{DataUpdaterGoogleSheets1.SheetsApiResponse@{DataUpdaterGoogleSheets1.SheetsApiResponse}}
+
+
+Serializable class to represent the structure of the Google Sheets API response.  
+
+
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{classDataUpdaterGoogleSheets1_1_1SheetsApiResponse}{Sheets\+Api\+Response}} \mbox{\hyperlink{classDataUpdaterGoogleSheets1_1_1SheetsApiResponse_a4678020b9779a899faa84217e5a0482c}{From\+Json}} (string json)
+\begin{DoxyCompactList}\small\item\em Creates an instance of Sheets\+Api\+Response from JSON. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+string \mbox{\hyperlink{classDataUpdaterGoogleSheets1_1_1SheetsApiResponse_ad82996b55f12113dfb6877d30d462737}{range}}
+\item 
+string \mbox{\hyperlink{classDataUpdaterGoogleSheets1_1_1SheetsApiResponse_a219e1abf528e5ec0bd1add62a977c20e}{major\+Dimension}}
+\item 
+string\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]} \mbox{\hyperlink{classDataUpdaterGoogleSheets1_1_1SheetsApiResponse_a2aed8da42d1913d92ab0c6194d0aec54}{values}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Serializable class to represent the structure of the Google Sheets API response. 
+
+Definition at line \mbox{\hyperlink{Test1_8cs_source_l00048}{48}} of file \mbox{\hyperlink{Test1_8cs_source}{Test1.\+cs}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classDataUpdaterGoogleSheets1_1_1SheetsApiResponse_a4678020b9779a899faa84217e5a0482c}\label{classDataUpdaterGoogleSheets1_1_1SheetsApiResponse_a4678020b9779a899faa84217e5a0482c} 
+\index{DataUpdaterGoogleSheets1.SheetsApiResponse@{DataUpdaterGoogleSheets1.SheetsApiResponse}!FromJson@{FromJson}}
+\index{FromJson@{FromJson}!DataUpdaterGoogleSheets1.SheetsApiResponse@{DataUpdaterGoogleSheets1.SheetsApiResponse}}
+\doxysubsubsection{\texorpdfstring{FromJson()}{FromJson()}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{classDataUpdaterGoogleSheets1_1_1SheetsApiResponse}{Sheets\+Api\+Response}} Data\+Updater\+Google\+Sheets1.\+Sheets\+Api\+Response.\+From\+Json (\begin{DoxyParamCaption}\item[{string}]{json }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Creates an instance of Sheets\+Api\+Response from JSON. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em json} & The JSON string to parse. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+An instance of Sheets\+Api\+Response. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{Test1_8cs_source_l00059}{59}} of file \mbox{\hyperlink{Test1_8cs_source}{Test1.\+cs}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ SheetsApiResponse\ sheetsApiResponse\ =\ \textcolor{keyword}{new}\ SheetsApiResponse();}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ JsonUtility.FromJsonOverwrite(json,\ sheetsApiResponse);}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ sheetsApiResponse;}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classDataUpdaterGoogleSheets1_1_1SheetsApiResponse_a219e1abf528e5ec0bd1add62a977c20e}\label{classDataUpdaterGoogleSheets1_1_1SheetsApiResponse_a219e1abf528e5ec0bd1add62a977c20e} 
+\index{DataUpdaterGoogleSheets1.SheetsApiResponse@{DataUpdaterGoogleSheets1.SheetsApiResponse}!majorDimension@{majorDimension}}
+\index{majorDimension@{majorDimension}!DataUpdaterGoogleSheets1.SheetsApiResponse@{DataUpdaterGoogleSheets1.SheetsApiResponse}}
+\doxysubsubsection{\texorpdfstring{majorDimension}{majorDimension}}
+{\footnotesize\ttfamily string Data\+Updater\+Google\+Sheets1.\+Sheets\+Api\+Response.\+major\+Dimension}
+
+
+
+Definition at line \mbox{\hyperlink{Test1_8cs_source_l00051}{51}} of file \mbox{\hyperlink{Test1_8cs_source}{Test1.\+cs}}.
+
+\Hypertarget{classDataUpdaterGoogleSheets1_1_1SheetsApiResponse_ad82996b55f12113dfb6877d30d462737}\label{classDataUpdaterGoogleSheets1_1_1SheetsApiResponse_ad82996b55f12113dfb6877d30d462737} 
+\index{DataUpdaterGoogleSheets1.SheetsApiResponse@{DataUpdaterGoogleSheets1.SheetsApiResponse}!range@{range}}
+\index{range@{range}!DataUpdaterGoogleSheets1.SheetsApiResponse@{DataUpdaterGoogleSheets1.SheetsApiResponse}}
+\doxysubsubsection{\texorpdfstring{range}{range}}
+{\footnotesize\ttfamily string Data\+Updater\+Google\+Sheets1.\+Sheets\+Api\+Response.\+range}
+
+
+
+Definition at line \mbox{\hyperlink{Test1_8cs_source_l00050}{50}} of file \mbox{\hyperlink{Test1_8cs_source}{Test1.\+cs}}.
+
+\Hypertarget{classDataUpdaterGoogleSheets1_1_1SheetsApiResponse_a2aed8da42d1913d92ab0c6194d0aec54}\label{classDataUpdaterGoogleSheets1_1_1SheetsApiResponse_a2aed8da42d1913d92ab0c6194d0aec54} 
+\index{DataUpdaterGoogleSheets1.SheetsApiResponse@{DataUpdaterGoogleSheets1.SheetsApiResponse}!values@{values}}
+\index{values@{values}!DataUpdaterGoogleSheets1.SheetsApiResponse@{DataUpdaterGoogleSheets1.SheetsApiResponse}}
+\doxysubsubsection{\texorpdfstring{values}{values}}
+{\footnotesize\ttfamily string \mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]} Data\+Updater\+Google\+Sheets1.\+Sheets\+Api\+Response.\+values}
+
+
+
+Definition at line \mbox{\hyperlink{Test1_8cs_source_l00052}{52}} of file \mbox{\hyperlink{Test1_8cs_source}{Test1.\+cs}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+compact-\/ariel-\/system/\+Scripts/\mbox{\hyperlink{Test1_8cs}{Test1.\+cs}}\end{DoxyCompactItemize}

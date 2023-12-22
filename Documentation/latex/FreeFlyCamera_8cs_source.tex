@@ -1,0 +1,47 @@
+\doxysection{Free\+Fly\+Camera.\+cs}
+\hypertarget{FreeFlyCamera_8cs_source}{}\label{FreeFlyCamera_8cs_source}\index{compact-\/ariel-\/system/Scripts/FreeFlyCamera.cs@{compact-\/ariel-\/system/Scripts/FreeFlyCamera.cs}}
+\mbox{\hyperlink{FreeFlyCamera_8cs}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{FreeFlyCamera_8cs_source_l00001}00001\ \textcolor{keyword}{using\ }UnityEngine;}
+\DoxyCodeLine{\Hypertarget{FreeFlyCamera_8cs_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{FreeFlyCamera_8cs_source_l00011}\mbox{\hyperlink{classFreeFlyCamera}{00011}}\ \textcolor{keyword}{public}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classFreeFlyCamera}{FreeFlyCamera}}\ :\ MonoBehaviour}
+\DoxyCodeLine{\Hypertarget{FreeFlyCamera_8cs_source_l00012}00012\ \{}
+\DoxyCodeLine{\Hypertarget{FreeFlyCamera_8cs_source_l00014}\mbox{\hyperlink{classFreeFlyCamera_ab39270cf48cf2c171bc4acaaaa582192}{00014}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{classFreeFlyCamera_ab39270cf48cf2c171bc4acaaaa582192}{speed}}\ =\ 10.0f;}
+\DoxyCodeLine{\Hypertarget{FreeFlyCamera_8cs_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{FreeFlyCamera_8cs_source_l00017}\mbox{\hyperlink{classFreeFlyCamera_a62b64f34ec58cd3ed46155d670795408}{00017}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{classFreeFlyCamera_a62b64f34ec58cd3ed46155d670795408}{sensitivity}}\ =\ 0.5f;}
+\DoxyCodeLine{\Hypertarget{FreeFlyCamera_8cs_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{FreeFlyCamera_8cs_source_l00025}00025\ \ \ \ \ \textcolor{keyword}{private}\ Vector3\ lastMousePosition\ =\ \textcolor{keyword}{new}\ Vector3(255,\ 255,\ 255);}
+\DoxyCodeLine{\Hypertarget{FreeFlyCamera_8cs_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{FreeFlyCamera_8cs_source_l00032}00032\ \ \ \ \ \textcolor{keywordtype}{void}\ Update()}
+\DoxyCodeLine{\Hypertarget{FreeFlyCamera_8cs_source_l00033}00033\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{FreeFlyCamera_8cs_source_l00034}00034\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ if\ the\ Shift\ key\ is\ pressed\ to\ enable\ camera\ movement}}
+\DoxyCodeLine{\Hypertarget{FreeFlyCamera_8cs_source_l00035}00035\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Input.GetKey(KeyCode.LeftShift)\ ||\ Input.GetKey(KeyCode.RightShift))}
+\DoxyCodeLine{\Hypertarget{FreeFlyCamera_8cs_source_l00036}00036\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{FreeFlyCamera_8cs_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Calculate\ the\ mouse\ movement\ difference\ from\ the\ last\ frame}}
+\DoxyCodeLine{\Hypertarget{FreeFlyCamera_8cs_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ lastMousePosition\ =\ Input.mousePosition\ -\/\ lastMousePosition;}
+\DoxyCodeLine{\Hypertarget{FreeFlyCamera_8cs_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Adjust\ the\ camera's\ rotation\ based\ on\ the\ mouse\ movement}}
+\DoxyCodeLine{\Hypertarget{FreeFlyCamera_8cs_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ lastMousePosition\ =\ \textcolor{keyword}{new}\ Vector3(-\/lastMousePosition.y\ *\ \mbox{\hyperlink{classFreeFlyCamera_a62b64f34ec58cd3ed46155d670795408}{sensitivity}},\ lastMousePosition.x\ *\ \mbox{\hyperlink{classFreeFlyCamera_a62b64f34ec58cd3ed46155d670795408}{sensitivity}},\ 0);}
+\DoxyCodeLine{\Hypertarget{FreeFlyCamera_8cs_source_l00041}00041\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Update\ the\ camera's\ rotation}}
+\DoxyCodeLine{\Hypertarget{FreeFlyCamera_8cs_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ lastMousePosition\ =\ \textcolor{keyword}{new}\ Vector3(transform.eulerAngles.x\ +\ lastMousePosition.x,\ transform.eulerAngles.y\ +\ lastMousePosition.y,\ 0);}
+\DoxyCodeLine{\Hypertarget{FreeFlyCamera_8cs_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ transform.eulerAngles\ =\ lastMousePosition;}
+\DoxyCodeLine{\Hypertarget{FreeFlyCamera_8cs_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Store\ the\ new\ last\ mouse\ position}}
+\DoxyCodeLine{\Hypertarget{FreeFlyCamera_8cs_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ lastMousePosition\ =\ Input.mousePosition;}
+\DoxyCodeLine{\Hypertarget{FreeFlyCamera_8cs_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{FreeFlyCamera_8cs_source_l00047}00047\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Initialize\ a\ direction\ vector\ for\ movement}}
+\DoxyCodeLine{\Hypertarget{FreeFlyCamera_8cs_source_l00048}00048\ \ \ \ \ \ \ \ \ \ \ \ \ Vector3\ direction\ =\ \textcolor{keyword}{new}\ Vector3();}
+\DoxyCodeLine{\Hypertarget{FreeFlyCamera_8cs_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{FreeFlyCamera_8cs_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Process\ keyboard\ inputs\ to\ determine\ the\ direction}}
+\DoxyCodeLine{\Hypertarget{FreeFlyCamera_8cs_source_l00051}00051\ \ \ \ \ \ \ \ \ \ \ \ \ direction\ +=\ Input.GetKey(KeyCode.W)\ ?\ transform.forward\ :\ Vector3.zero;}
+\DoxyCodeLine{\Hypertarget{FreeFlyCamera_8cs_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ direction\ +=\ Input.GetKey(KeyCode.S)\ ?\ -\/transform.forward\ :\ Vector3.zero;}
+\DoxyCodeLine{\Hypertarget{FreeFlyCamera_8cs_source_l00053}00053\ \ \ \ \ \ \ \ \ \ \ \ \ direction\ +=\ Input.GetKey(KeyCode.A)\ ?\ -\/transform.right\ :\ Vector3.zero;}
+\DoxyCodeLine{\Hypertarget{FreeFlyCamera_8cs_source_l00054}00054\ \ \ \ \ \ \ \ \ \ \ \ \ direction\ +=\ Input.GetKey(KeyCode.D)\ ?\ transform.right\ :\ Vector3.zero;}
+\DoxyCodeLine{\Hypertarget{FreeFlyCamera_8cs_source_l00055}00055\ \ \ \ \ \ \ \ \ \ \ \ \ direction\ +=\ Input.GetKey(KeyCode.E)\ ?\ transform.up\ :\ Vector3.zero;}
+\DoxyCodeLine{\Hypertarget{FreeFlyCamera_8cs_source_l00056}00056\ \ \ \ \ \ \ \ \ \ \ \ \ direction\ +=\ Input.GetKey(KeyCode.Q)\ ?\ -\/transform.up\ :\ Vector3.zero;}
+\DoxyCodeLine{\Hypertarget{FreeFlyCamera_8cs_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{FreeFlyCamera_8cs_source_l00058}00058\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Move\ the\ camera\ position\ based\ on\ input,\ speed,\ and\ the\ time\ since\ the\ last\ frame}}
+\DoxyCodeLine{\Hypertarget{FreeFlyCamera_8cs_source_l00059}00059\ \ \ \ \ \ \ \ \ \ \ \ \ transform.position\ +=\ direction\ *\ \mbox{\hyperlink{classFreeFlyCamera_ab39270cf48cf2c171bc4acaaaa582192}{speed}}\ *\ Time.deltaTime;}
+\DoxyCodeLine{\Hypertarget{FreeFlyCamera_8cs_source_l00060}00060\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{FreeFlyCamera_8cs_source_l00061}00061\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{FreeFlyCamera_8cs_source_l00062}00062\ \}}
+
+\end{DoxyCode}

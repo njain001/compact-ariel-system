@@ -1,0 +1,234 @@
+\doxysection{occupancy Namespace Reference}
+\hypertarget{namespaceoccupancy}{}\label{namespaceoccupancy}\index{occupancy@{occupancy}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceoccupancy_a1054a1747141c85f74c238e49ad6ce6f}{read\+\_\+thermal\+\_\+sensor\+\_\+data}} (sensor)
+\begin{DoxyCompactList}\small\item\em Datetime module for handling date and time. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceoccupancy_a6490e404d1bb6be79ad043fb04530033}{process\+\_\+ir\+\_\+data}} (frame)
+\begin{DoxyCompactList}\small\item\em Function to process infrared (IR) data. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceoccupancy_ad2fce878455928ee635cbe1c4fa68de0}{detect\+\_\+and\+\_\+track\+\_\+persons}} (frame, cnt\+\_\+up=0, cnt\+\_\+down=0)
+\begin{DoxyCompactList}\small\item\em Function to detect and track persons in a thermal image. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceoccupancy_aca0ff831a21a23b1b939c46c1725e980}{visualize\+\_\+data}} (frame, index)
+\begin{DoxyCompactList}\small\item\em Function to visualize and save the thermal data as an image. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceoccupancy_a554f5ceafd31673b1bb6897ef5c8b14f}{get\+\_\+occupancy\+\_\+count}} (sensor, save\+\_\+image=False)
+\begin{DoxyCompactList}\small\item\em Main function to get the occupancy count. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceoccupancy_ad2fce878455928ee635cbe1c4fa68de0}\label{namespaceoccupancy_ad2fce878455928ee635cbe1c4fa68de0} 
+\index{occupancy@{occupancy}!detect\_and\_track\_persons@{detect\_and\_track\_persons}}
+\index{detect\_and\_track\_persons@{detect\_and\_track\_persons}!occupancy@{occupancy}}
+\doxysubsubsection{\texorpdfstring{detect\_and\_track\_persons()}{detect\_and\_track\_persons()}}
+{\footnotesize\ttfamily occupancy.\+detect\+\_\+and\+\_\+track\+\_\+persons (\begin{DoxyParamCaption}\item[{}]{frame,  }\item[{}]{cnt\+\_\+up = {\ttfamily 0},  }\item[{}]{cnt\+\_\+down = {\ttfamily 0} }\end{DoxyParamCaption})}
+
+
+
+Function to detect and track persons in a thermal image. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em frame} & The processed thermal image data. \\
+\hline
+{\em cnt\+\_\+up} & (Optional) Initial count of people moving up. \\
+\hline
+{\em cnt\+\_\+down} & (Optional) Initial count of people moving down. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A tuple containing the processed frame and updated counts. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{occupancy_8py_source_l00044}{44}} of file \mbox{\hyperlink{occupancy_8py_source}{occupancy.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00044\ \textcolor{keyword}{def\ }detect\_and\_track\_persons(frame,\ cnt\_up=0,\ cnt\_down=0):}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{comment}{\#\ Define\ frame\ dimensions\ and\ threshold\ area\ for\ detection}}
+\DoxyCodeLine{00046\ \ \ \ \ h,\ w\ =\ 24,\ 32}
+\DoxyCodeLine{00047\ \ \ \ \ frameArea\ =\ h\ *\ w}
+\DoxyCodeLine{00048\ \ \ \ \ areaTH\ =\ frameArea\ /\ 250}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{comment}{\#\ Define\ lines\ for\ counting\ entry\ and\ exit}}
+\DoxyCodeLine{00051\ \ \ \ \ line\_up\ =\ int(2\ *\ (h\ /\ 5))}
+\DoxyCodeLine{00052\ \ \ \ \ line\_down\ =\ int(3\ *\ (h\ /\ 5))}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{comment}{\#\ Apply\ binary\ thresholding\ to\ find\ hot\ spots\ (potential\ persons)}}
+\DoxyCodeLine{00055\ \ \ \ \ \_,\ thresh\ =\ cv.threshold(frame,\ 200,\ 255,\ cv.THRESH\_BINARY)}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{comment}{\#\ Find\ contours\ in\ the\ thresholded\ image}}
+\DoxyCodeLine{00058\ \ \ \ \ contours,\ \_\ =\ cv.findContours(thresh,\ cv.RETR\_TREE,\ cv.CHAIN\_APPROX\_SIMPLE)}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{comment}{\#\ Process\ each\ detected\ contour}}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordflow}{for}\ contour\ \textcolor{keywordflow}{in}\ contours:}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ M\ =\ cv.moments(contour)\ \ \textcolor{comment}{\#\ Calculate\ moments\ for\ contour}}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ M[\textcolor{stringliteral}{'m00'}]\ !=\ 0:\ \ \textcolor{comment}{\#\ Check\ for\ division\ by\ zero}}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Compute\ centroid\ of\ the\ contour}}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ cx\ =\ int(M[\textcolor{stringliteral}{'m10'}]\ /\ M[\textcolor{stringliteral}{'m00'}])}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ cy\ =\ int(M[\textcolor{stringliteral}{'m01'}]\ /\ M[\textcolor{stringliteral}{'m00'}])}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Count\ crossings\ over\ the\ predefined\ lines}}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ cy\ <\ line\_up:}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cnt\_up\ +=\ 1}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{elif}\ cy\ >\ line\_down:}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cnt\_down\ +=\ 1}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Visualize\ the\ contour\ and\ its\ centroid}}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ cv.drawContours(frame,\ [contour],\ -\/1,\ (0,\ 255,\ 0),\ 3)}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ cv.circle(frame,\ (cx,\ cy),\ 5,\ (0,\ 0,\ 255),\ -\/1)}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordflow}{return}\ frame,\ cnt\_up,\ cnt\_down\ \ \textcolor{comment}{\#\ Return\ processed\ frame\ and\ counts}}
+\DoxyCodeLine{00079\ }
+
+\end{DoxyCode}
+\Hypertarget{namespaceoccupancy_a554f5ceafd31673b1bb6897ef5c8b14f}\label{namespaceoccupancy_a554f5ceafd31673b1bb6897ef5c8b14f} 
+\index{occupancy@{occupancy}!get\_occupancy\_count@{get\_occupancy\_count}}
+\index{get\_occupancy\_count@{get\_occupancy\_count}!occupancy@{occupancy}}
+\doxysubsubsection{\texorpdfstring{get\_occupancy\_count()}{get\_occupancy\_count()}}
+{\footnotesize\ttfamily occupancy.\+get\+\_\+occupancy\+\_\+count (\begin{DoxyParamCaption}\item[{}]{sensor,  }\item[{}]{save\+\_\+image = {\ttfamily False} }\end{DoxyParamCaption})}
+
+
+
+Main function to get the occupancy count. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sensor} & The thermal sensor object to use for data acquisition. \\
+\hline
+{\em save\+\_\+image} & (Optional) A boolean indicating whether to save the processed frame as an image. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The total number of people detected. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{occupancy_8py_source_l00100}{100}} of file \mbox{\hyperlink{occupancy_8py_source}{occupancy.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00100\ \textcolor{keyword}{def\ }get\_occupancy\_count(sensor,\ save\_image=False):\ \ \ \ }
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{comment}{\#\ Read\ and\ process\ data\ from\ the\ IR\ sensor}}
+\DoxyCodeLine{00102\ \ \ \ \ ir\_data\ =\ read\_thermal\_sensor\_data(sensor)}
+\DoxyCodeLine{00103\ \ \ \ \ processed\_frame\ =\ process\_ir\_data(ir\_data)}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{comment}{\#\ Detect\ and\ track\ persons\ in\ the\ processed\ frame}}
+\DoxyCodeLine{00106\ \ \ \ \ processed\_frame,\ cnt\_up,\ cnt\_down\ =\ detect\_and\_track\_persons(processed\_frame)}
+\DoxyCodeLine{00107\ \ \ \ \ }
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{comment}{\#\ Optionally\ visualize\ and\ save\ the\ processed\ frame}}
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keywordflow}{if}\ save\_image:}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ visualize\_data(processed\_frame,\ datetime.datetime.now())}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{comment}{\#\ Calculate\ the\ total\ number\ of\ people\ (assuming\ entry-\/exit\ model)}}
+\DoxyCodeLine{00113\ \ \ \ \ total\_people\ =\ abs(cnt\_up\ -\/\ cnt\_down)}
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keywordflow}{return}\ total\_people}
+
+\end{DoxyCode}
+\Hypertarget{namespaceoccupancy_a6490e404d1bb6be79ad043fb04530033}\label{namespaceoccupancy_a6490e404d1bb6be79ad043fb04530033} 
+\index{occupancy@{occupancy}!process\_ir\_data@{process\_ir\_data}}
+\index{process\_ir\_data@{process\_ir\_data}!occupancy@{occupancy}}
+\doxysubsubsection{\texorpdfstring{process\_ir\_data()}{process\_ir\_data()}}
+{\footnotesize\ttfamily occupancy.\+process\+\_\+ir\+\_\+data (\begin{DoxyParamCaption}\item[{}]{frame }\end{DoxyParamCaption})}
+
+
+
+Function to process infrared (IR) data. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em frame} & A list of temperature readings from the thermal sensor. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A 24x32 numpy array of 8-\/bit values representing the processed IR data. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{occupancy_8py_source_l00030}{30}} of file \mbox{\hyperlink{occupancy_8py_source}{occupancy.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00030\ \textcolor{keyword}{def\ }process\_ir\_data(frame):}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{comment}{\#\ Reshape\ the\ IR\ data\ into\ a\ 24x32\ array\ (assumed\ sensor\ resolution)}}
+\DoxyCodeLine{00032\ \ \ \ \ ir\_array\ =\ np.array(frame).reshape(24,\ 32)}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{comment}{\#\ Normalize\ the\ IR\ data\ for\ uniform\ intensity\ distribution}}
+\DoxyCodeLine{00034\ \ \ \ \ normalized\_ir\ =\ cv.normalize(ir\_array,\ \textcolor{keywordtype}{None},\ 0,\ 255,\ cv.NORM\_MINMAX)}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{comment}{\#\ Convert\ normalized\ data\ to\ 8-\/bit\ for\ image\ processing}}
+\DoxyCodeLine{00036\ \ \ \ \ converted\_ir\ =\ np.uint8(normalized\_ir)}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordflow}{return}\ converted\_ir}
+\DoxyCodeLine{00038\ }
+
+\end{DoxyCode}
+\Hypertarget{namespaceoccupancy_a1054a1747141c85f74c238e49ad6ce6f}\label{namespaceoccupancy_a1054a1747141c85f74c238e49ad6ce6f} 
+\index{occupancy@{occupancy}!read\_thermal\_sensor\_data@{read\_thermal\_sensor\_data}}
+\index{read\_thermal\_sensor\_data@{read\_thermal\_sensor\_data}!occupancy@{occupancy}}
+\doxysubsubsection{\texorpdfstring{read\_thermal\_sensor\_data()}{read\_thermal\_sensor\_data()}}
+{\footnotesize\ttfamily occupancy.\+read\+\_\+thermal\+\_\+sensor\+\_\+data (\begin{DoxyParamCaption}\item[{}]{sensor }\end{DoxyParamCaption})}
+
+
+
+Datetime module for handling date and time. 
+
+Function to read data from a thermal sensor. 
+\begin{DoxyParams}{Parameters}
+{\em sensor} & The thermal sensor object from which to read. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A list of temperature readings representing the captured frame data. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{occupancy_8py_source_l00018}{18}} of file \mbox{\hyperlink{occupancy_8py_source}{occupancy.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00018\ \textcolor{keyword}{def\ }read\_thermal\_sensor\_data(sensor):}
+\DoxyCodeLine{00019\ \ \ \ \ frame\ =\ [0]\ *\ 768\ \ \textcolor{comment}{\#\ Initialize\ frame\ array\ for\ sensor\ data\ (assuming\ 768\ data\ points)}}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ sensor.getFrame(frame)\ \ \textcolor{comment}{\#\ Attempt\ to\ read\ data\ from\ the\ sensor}}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordflow}{except}\ ValueError:}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ In\ case\ of\ a\ read\ error,\ retry\ once}}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ sensor.getFrame(frame)}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordflow}{return}\ frame\ \ \textcolor{comment}{\#\ Return\ the\ captured\ frame\ data}}
+\DoxyCodeLine{00026\ }
+
+\end{DoxyCode}
+\Hypertarget{namespaceoccupancy_aca0ff831a21a23b1b939c46c1725e980}\label{namespaceoccupancy_aca0ff831a21a23b1b939c46c1725e980} 
+\index{occupancy@{occupancy}!visualize\_data@{visualize\_data}}
+\index{visualize\_data@{visualize\_data}!occupancy@{occupancy}}
+\doxysubsubsection{\texorpdfstring{visualize\_data()}{visualize\_data()}}
+{\footnotesize\ttfamily occupancy.\+visualize\+\_\+data (\begin{DoxyParamCaption}\item[{}]{frame,  }\item[{}]{index }\end{DoxyParamCaption})}
+
+
+
+Function to visualize and save the thermal data as an image. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em frame} & The processed frame to visualize. \\
+\hline
+{\em index} & An identifier for the image, typically a timestamp. Creates and saves a heatmap representation of the thermal data. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{occupancy_8py_source_l00084}{84}} of file \mbox{\hyperlink{occupancy_8py_source}{occupancy.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00084\ \textcolor{keyword}{def\ }visualize\_data(frame,\ index):}
+\DoxyCodeLine{00085\ \ \ \ \ plt.imshow(frame,\ cmap=\textcolor{stringliteral}{'hot'},\ interpolation=\textcolor{stringliteral}{'nearest'})}
+\DoxyCodeLine{00086\ \ \ \ \ }
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{comment}{\#\ Create\ a\ directory\ for\ saving\ images,\ if\ it\ doesn't\ exist}}
+\DoxyCodeLine{00088\ \ \ \ \ os.makedirs(\textcolor{stringliteral}{'thermal\_images'},\ exist\_ok=\textcolor{keyword}{True})}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{comment}{\#\ Save\ the\ image\ with\ a\ timestamp\ in\ the\ filename}}
+\DoxyCodeLine{00091\ \ \ \ \ plt.savefig(f\textcolor{stringliteral}{'thermal\_images/thermal\_image\_\{index\}.png'})}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{comment}{\#\ Clear\ the\ figure\ to\ free\ memory\ and\ avoid\ overlap}}
+\DoxyCodeLine{00094\ \ \ \ \ plt.clf()}
+\DoxyCodeLine{00095\ }
+
+\end{DoxyCode}

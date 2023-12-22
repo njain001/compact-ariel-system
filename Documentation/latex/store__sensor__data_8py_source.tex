@@ -1,0 +1,113 @@
+\doxysection{store\+\_\+sensor\+\_\+data.\+py}
+\hypertarget{store__sensor__data_8py_source}{}\label{store__sensor__data_8py_source}\index{compact-\/ariel-\/system/sensor/store\_sensor\_data.py@{compact-\/ariel-\/system/sensor/store\_sensor\_data.py}}
+\mbox{\hyperlink{store__sensor__data_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00001}\mbox{\hyperlink{namespacestore__sensor__data}{00001}}\ \textcolor{keyword}{import}\ time\ \ }
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00002}00002\ \textcolor{keyword}{import}\ board\ \ }
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00003}00003\ \textcolor{keyword}{import}\ adafruit\_scd4x\ \ }
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00004}00004\ \textcolor{keyword}{import}\ busio\ \ }
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00005}00005\ \textcolor{keyword}{import}\ os.path\ \ }
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00006}00006\ \textcolor{keyword}{import}\ datetime\ \ }
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00007}00007\ \textcolor{keyword}{import}\ json\ \ }
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00008}00008\ \textcolor{keyword}{import}\ smbus2\ \ }
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00009}00009\ \textcolor{keyword}{import}\ adafruit\_mlx90640\ \ }
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00010}00010\ \textcolor{keyword}{from}\ gpiozero\ \textcolor{keyword}{import}\ DigitalInputDevice,\ DigitalOutputDevice\ \ }
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00012}00012\ \textcolor{comment}{\#\ Google\ API\ and\ authentication\ libraries.}}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00013}00013\ \textcolor{keyword}{import}\ google.auth}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00014}00014\ \textcolor{keyword}{from}\ google.auth.transport.requests\ \textcolor{keyword}{import}\ Request}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00015}00015\ \textcolor{keyword}{from}\ google.oauth2.credentials\ \textcolor{keyword}{import}\ Credentials}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00016}00016\ \textcolor{keyword}{from}\ google\_auth\_oauthlib.flow\ \textcolor{keyword}{import}\ InstalledAppFlow}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00017}00017\ \textcolor{keyword}{from}\ googleapiclient.discovery\ \textcolor{keyword}{import}\ build}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00018}00018\ \textcolor{keyword}{from}\ googleapiclient.errors\ \textcolor{keyword}{import}\ HttpError}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00020}00020\ \textcolor{comment}{\#\ Custom\ modules\ for\ geolocation\ and\ occupancy\ detection.}}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00021}00021\ \textcolor{keyword}{from}\ geolocation\_data\ \textcolor{keyword}{import}\ get\_closest\_ap}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00022}00022\ \textcolor{keyword}{from}\ occupancy\ \textcolor{keyword}{import}\ get\_occupancy\_count}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00024}\mbox{\hyperlink{namespaceenvironmental__monitoring}{00024}}\ }
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00028}00028\ \textcolor{comment}{\#\ Constants\ for\ Google\ Sheets\ API.}}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00029}\mbox{\hyperlink{namespacestore__sensor__data_aebd1dc5a480e7b8b18df38a99865ec36}{00029}}\ SAMPLE\_SPREADSHEET\_ID\ =\ \textcolor{stringliteral}{'your\_sheet\_id'}\ \ }
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00030}\mbox{\hyperlink{namespacestore__sensor__data_aae090abef7525b751e8608ff9ba199cf}{00030}}\ SAMPLE\_RANGE\_NAME\ =\ \textcolor{stringliteral}{'Sheet1!A:H'}\ \ }
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00032}00032\ \textcolor{comment}{\#\ Scopes\ define\ the\ level\ of\ access\ required.\ Modify\ as\ needed.}}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00033}\mbox{\hyperlink{namespacestore__sensor__data_adf68962a7719646ff6f651980c06705f}{00033}}\ scope\ =\ [\textcolor{stringliteral}{'https://www.googleapis.com/auth/spreadsheets'}]}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00037}\mbox{\hyperlink{namespacestore__sensor__data_a8320cde1ad26f3101a608ea7e5b01c15}{00037}}\ creds\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00038}00038\ \textcolor{keywordflow}{if}\ os.path.exists(\textcolor{stringliteral}{'token.json'}):}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00039}00039\ \ \ \ \ creds\ =\ Credentials.from\_authorized\_user\_file(\textcolor{stringliteral}{'token.json'},\ scope)}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00040}00040\ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ creds\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{not}\ creds.valid:}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00041}00041\ \ \ \ \ \textcolor{keywordflow}{if}\ creds\ \textcolor{keywordflow}{and}\ creds.expired\ \textcolor{keywordflow}{and}\ creds.refresh\_token:}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00042}00042\ \ \ \ \ \ \ \ \ creds.refresh(Request())}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00043}00043\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00044}\mbox{\hyperlink{namespacestore__sensor__data_a08fe9455760539e4b757c83e612abf1c}{00044}}\ \ \ \ \ \ \ \ \ flow\ =\ InstalledAppFlow.from\_client\_secrets\_file(}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'credentials.json'},\ scope)}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00046}00046\ \ \ \ \ \ \ \ \ creds\ =\ flow.run\_local\_server(port=0)}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00047}00047\ \ \ \ \ \textcolor{keyword}{with}\ open(\textcolor{stringliteral}{'token.json'},\ \textcolor{stringliteral}{'w'})\ \textcolor{keyword}{as}\ token:}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00048}00048\ \ \ \ \ \ \ \ \ token.write(creds.to\_json())}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00057}\mbox{\hyperlink{namespacestore__sensor__data_a7d29dbd368876031e984e2f768812808}{00057}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacestore__sensor__data_a7d29dbd368876031e984e2f768812808}{append\_values}}(spreadsheet\_id,\ range\_name,\ value\_input\_option,\ \_values,\ creds):}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00058}00058\ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00059}00059\ \ \ \ \ \ \ \ \ service\ =\ build(\textcolor{stringliteral}{'sheets'},\ \textcolor{stringliteral}{'v4'},\ credentials=creds)}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00060}00060\ \ \ \ \ \ \ \ \ body\ =\ \{\textcolor{stringliteral}{'values'}:\ \_values\}}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00061}00061\ \ \ \ \ \ \ \ \ result\ =\ service.spreadsheets().\mbox{\hyperlink{namespacestore__sensor__data_a83967afc98c16cbd23a871bfe8ee9e21}{values}}().append(}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ spreadsheetId=spreadsheet\_id,}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00063}00063\ \ \ \ \ \ \ \ \ \ \ \ \ range=range\_name,}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00064}00064\ \ \ \ \ \ \ \ \ \ \ \ \ valueInputOption=value\_input\_option,}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00065}00065\ \ \ \ \ \ \ \ \ \ \ \ \ insertDataOption=\textcolor{stringliteral}{"{}INSERT\_ROWS"{}},}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00066}00066\ \ \ \ \ \ \ \ \ \ \ \ \ body=body).execute()}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00067}00067\ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}Data\ appended"{}})}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00068}00068\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00069}00069\ \ \ \ \ \textcolor{keywordflow}{except}\ HttpError\ \textcolor{keyword}{as}\ error:}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00070}00070\ \ \ \ \ \ \ \ \ print(f\textcolor{stringliteral}{"{}An\ error\ occurred:\ \{error\}"{}})}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00071}00071\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ error}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00073}00073\ }
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00076}\mbox{\hyperlink{namespacestore__sensor__data_a934c2cac1ac65dc25c13c52a54d5836a}{00076}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacestore__sensor__data_a934c2cac1ac65dc25c13c52a54d5836a}{initialize\_thermal\_sensor}}(i2c):}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00077}00077\ \ \ \ \ sensor\ =\ adafruit\_mlx90640.MLX90640(i2c)}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00078}00078\ \ \ \ \ sensor.refresh\_rate\ =\ adafruit\_mlx90640.RefreshRate.REFRESH\_2\_HZ\ \ \textcolor{comment}{\#\ Set\ refresh\ rate}}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00079}00079\ \ \ \ \ \textcolor{keywordflow}{return}\ sensor}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00080}00080\ }
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00081}00081\ }
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00082}00082\ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00083}\mbox{\hyperlink{namespacestore__sensor__data_a4eb1d0653e9b82911473b7278c92a990}{00083}}\ \ \ \ \ service\ =\ build(\textcolor{stringliteral}{'sheets'},\ \textcolor{stringliteral}{'v4'},\ credentials=creds)}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00084}00084\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00085}\mbox{\hyperlink{namespacestore__sensor__data_addfee28075d1b11aba375b6f6e430d13}{00085}}\ \ \ \ \ i2c\ =\ busio.I2C(board.SCL,\ board.SDA,\ frequency=800000)\ \ \textcolor{comment}{\#\ Fast\ I2C\ connection\ for\ thermal\ sensor.}}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00086}\mbox{\hyperlink{namespacestore__sensor__data_a2592746a1d3b28d557351a7cced3a17f}{00086}}\ \ \ \ \ other\_i2c\ =\ busio.I2C(board.SCL,\ board.SDA)\ \ \textcolor{comment}{\#\ Standard\ I2C\ connection.}}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00087}\mbox{\hyperlink{namespacestore__sensor__data_a3fc830bda9f4a247a0a88d787ff07894}{00087}}\ \ \ \ \ scd4x\ =\ adafruit\_scd4x.SCD4X(i2c)\ \ \textcolor{comment}{\#\ Initialize\ the\ CO2\ sensor.}}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00088}00088\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00089}\mbox{\hyperlink{namespacestore__sensor__data_a473f9939538a3710872920cf4947ad1e}{00089}}\ \ \ \ \ thermal\_sensor\ =\ \mbox{\hyperlink{namespacestore__sensor__data_a934c2cac1ac65dc25c13c52a54d5836a}{initialize\_thermal\_sensor}}(i2c)\ \ \textcolor{comment}{\#\ Initialize\ thermal\ sensor.}}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00090}00090\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00091}\mbox{\hyperlink{namespacestore__sensor__data_aea5ed13b6a7cdd9fc6802367e1e34605}{00091}}\ \ \ \ \ ap\_dict\ =\ get\_closest\_ap()\ \ \textcolor{comment}{\#\ Fetch\ the\ closest\ access\ point's\ data.}}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00092}\mbox{\hyperlink{namespacestore__sensor__data_abb442a86f256f79df13d913ddddd8b75}{00092}}\ \ \ \ \ building,\ floor,\ room\ =\ ap\_dict[\textcolor{stringliteral}{'building'}],\ ap\_dict[\textcolor{stringliteral}{'floor'}],\ ap\_dict[\textcolor{stringliteral}{'room'}]\ \ \textcolor{comment}{\#\ Extract\ location\ details.}}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00093}00093\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00094}00094\ \ \ \ \ \textcolor{keywordflow}{while}\ \textcolor{keyword}{True}:\ \ \textcolor{comment}{\#\ Main\ loop\ to\ continuously\ fetch\ data\ and\ update\ the\ sheet.}}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00095}00095\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00096}\mbox{\hyperlink{namespacestore__sensor__data_a408d2a82f83b3a45cb56ed41a7295330}{00096}}\ \ \ \ \ \ \ \ \ \ \ \ \ occupant\ =\ get\_occupancy\_count(thermal\_sensor,\ save\_image=\textcolor{keyword}{True})\ \ \textcolor{comment}{\#\ Get\ the\ occupancy\ count.}}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00097}00097\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00098}00098\ \ \ \ \ \ \ \ \ \ \ \ \ scd4x.measure\_single\_shot()\ \ \textcolor{comment}{\#\ Take\ a\ single\ measurement\ of\ CO2,\ temp,\ and\ humidity.}}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00099}\mbox{\hyperlink{namespacestore__sensor__data_a83967afc98c16cbd23a871bfe8ee9e21}{00099}}\ \ \ \ \ \ \ \ \ \ \ \ \ values\ =\ [[str(datetime.datetime.now()),\ building,\ floor,\ room,\ scd4x.CO2,\ scd4x.temperature,\ scd4x.relative\_humidity,\ occupant]]}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00100}00100\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacestore__sensor__data_a7d29dbd368876031e984e2f768812808}{append\_values}}(SAMPLE\_SPREADSHEET\_ID,\ \textcolor{stringliteral}{'Sheet1'},\ \textcolor{stringliteral}{'USER\_ENTERED'},\ values,\ creds)\ \ \textcolor{comment}{\#\ Append\ the\ data\ to\ the\ sheet.}}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00101}00101\ }
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00102}00102\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Call\ the\ Sheets\ API\ to\ read\ back\ the\ data\ for\ verification\ (optional).}}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00103}\mbox{\hyperlink{namespacestore__sensor__data_addf9c66724ef271da43839a6541dec07}{00103}}\ \ \ \ \ \ \ \ \ \ \ \ \ sheet\ =\ service.spreadsheets()}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00104}\mbox{\hyperlink{namespacestore__sensor__data_acddce4f926939f16025a4c869ccd0f43}{00104}}\ \ \ \ \ \ \ \ \ \ \ \ \ result\ =\ sheet.values().get(spreadsheetId=SAMPLE\_SPREADSHEET\_ID,}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00105}00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ range=SAMPLE\_RANGE\_NAME).execute()}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00106}00106\ \ \ \ \ \ \ \ \ \ \ \ \ values\ =\ result.get(\textcolor{stringliteral}{'values'},\ [])}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00107}00107\ }
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00108}00108\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ values:}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00109}00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{'No\ data\ found.'})}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00110}00110\ }
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00111}00111\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{except}\ RuntimeError\ \textcolor{keyword}{as}\ error:\ \ \textcolor{comment}{\#\ Handle\ specific\ errors\ from\ the\ sensors.}}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00112}00112\ \ \ \ \ \ \ \ \ \ \ \ \ print(error.args[0])}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00113}00113\ \ \ \ \ \ \ \ \ \ \ \ \ time.sleep(5.0)\ \ \textcolor{comment}{\#\ Wait\ for\ a\ while\ before\ retrying.}}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00114}00114\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue}}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00115}00115\ }
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00116}00116\ \ \ \ \ \ \ \ \ time.sleep(5.0)\ \ \textcolor{comment}{\#\ Delay\ before\ the\ next\ reading.}}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00117}00117\ \textcolor{keywordflow}{except}\ HttpError\ \textcolor{keyword}{as}\ err:\ \ \textcolor{comment}{\#\ Handle\ HTTP\ errors\ from\ Google\ Sheets\ API.}}
+\DoxyCodeLine{\Hypertarget{store__sensor__data_8py_source_l00118}00118\ \ \ \ \ print(err)}
+
+\end{DoxyCode}

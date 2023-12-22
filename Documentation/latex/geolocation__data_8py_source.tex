@@ -1,0 +1,73 @@
+\doxysection{geolocation\+\_\+data.\+py}
+\hypertarget{geolocation__data_8py_source}{}\label{geolocation__data_8py_source}\index{compact-\/ariel-\/system/sensor/geolocation\_data.py@{compact-\/ariel-\/system/sensor/geolocation\_data.py}}
+\mbox{\hyperlink{geolocation__data_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00001}\mbox{\hyperlink{namespacegeolocation__data}{00001}}\ \textcolor{keyword}{from}\ data\ \textcolor{keyword}{import}\ data}
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00002}00002\ \textcolor{keyword}{from}\ rssi\ \textcolor{keyword}{import}\ RSSI\_Scan}
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00005}\mbox{\hyperlink{namespacegeolocation__data_a6b66ab145dba31c43008323bf265e4c6}{00005}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacegeolocation__data_a6b66ab145dba31c43008323bf265e4c6}{get\_closest\_ap}}():}
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00006}00006\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00009}00009\ \ \ \ \ \textcolor{keyword}{def\ }getSSID(raw\_cell):}
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00010}00010\ \ \ \ \ \ \ \ \ ssid\ =\ raw\_cell.split(\textcolor{stringliteral}{'ESSID:"{}'})[1]}
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00011}00011\ \ \ \ \ \ \ \ \ ssid\ =\ ssid.split(\textcolor{stringliteral}{'"{}'})[0]}
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00012}00012\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ssid}
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00014}00014\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00017}00017\ \ \ \ \ \textcolor{keyword}{def\ }getMacAddress(raw\_cell):}
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00018}00018\ \ \ \ \ \ \ \ \ mac\ =\ raw\_cell.split(\textcolor{stringliteral}{'Address:'})[1]}
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00019}00019\ \ \ \ \ \ \ \ \ mac\ =\ mac.split(\textcolor{stringliteral}{'\ '})[1].replace(\textcolor{stringliteral}{"{}\(\backslash\)\(\backslash\)n"{}},\ \textcolor{stringliteral}{"{}"{}})}
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00020}00020\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mac}
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00022}00022\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00025}00025\ \ \ \ \ \textcolor{keyword}{def\ }getQuality(raw\_cell):}
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00026}00026\ \ \ \ \ \ \ \ \ quality\ =\ raw\_cell.split(\textcolor{stringliteral}{'Quality='})[1]}
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00027}00027\ \ \ \ \ \ \ \ \ quality\ =\ quality.split(\textcolor{stringliteral}{'\ '})[0]}
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00028}00028\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ quality}
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00030}00030\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00033}00033\ \ \ \ \ \textcolor{keyword}{def\ }getSignalLevel(raw\_cell):}
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00034}00034\ \ \ \ \ \ \ \ \ signal\ =\ raw\_cell.split(\textcolor{stringliteral}{'Signal\ level='})[1]}
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00035}00035\ \ \ \ \ \ \ \ \ signal\ =\ int(signal.split(\textcolor{stringliteral}{'\ '})[0])}
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00036}00036\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ signal}
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00038}00038\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00041}00041\ \ \ \ \ \textcolor{keyword}{def\ }parseCell(raw\_cell):}
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00042}00042\ \ \ \ \ \ \ \ \ cell\ =\ \{}
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'ssid'}:\ getSSID(raw\_cell),}
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'quality'}:\ getQuality(raw\_cell),}
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'signal'}:\ getSignalLevel(raw\_cell),}
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00046}00046\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'mac'}:\ getMacAddress(raw\_cell)}
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00047}00047\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00048}00048\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ cell}
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00050}00050\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00053}00053\ \ \ \ \ \textcolor{keyword}{def\ }formatCells(raw\_cell\_string):}
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00054}00054\ \ \ \ \ \ \ \ \ raw\_cells\ =\ raw\_cell\_string.split(\textcolor{stringliteral}{'Cell'})\ \textcolor{comment}{\#\ Divide\ raw\ string\ into\ raw\ cells.}}
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00055}00055\ \ \ \ \ \ \ \ \ raw\_cells.pop(0)\ \textcolor{comment}{\#\ Remove\ unnecessary\ "{}Scan\ Completed"{}\ message.}}
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00056}00056\ \ \ \ \ \ \ \ \ if(len(raw\_cells)\ >\ 0):\ \textcolor{comment}{\#\ Continue\ execution\ if\ at\ least\ one\ network\ is\ detected.}}
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00057}00057\ \ \ \ \ \ \ \ \ \ \ \ \ formatted\_cells\ =\ [parseCell(cell)\ \textcolor{keywordflow}{for}\ cell\ \textcolor{keywordflow}{in}\ raw\_cells]\ \textcolor{comment}{\#\ Parse\ each\ cell\ into\ a\ dictionary.}}
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00058}00058\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ formatted\_cells}
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00059}00059\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00060}00060\ \ \ \ \ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}Networks\ not\ detected."{}})}
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00061}00061\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{False}}
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00062}00062\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00063}00063\ \ \ \ \ obj\ =\ RSSI\_Scan(\textcolor{stringliteral}{'wlan0'})\ \textcolor{comment}{\#\ Object\ for\ scanning\ Wi-\/Fi\ networks.}}
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00064}00064\ \ \ \ \ aps\ =\ obj.getRawNetworkScan(\textcolor{keyword}{True})[\textcolor{stringliteral}{'output'}]\ \textcolor{comment}{\#\ Raw\ scan\ data.}}
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00065}00065\ \ \ \ \ aps\ =\ formatCells(str(aps))\ \textcolor{comment}{\#\ Formatted\ scan\ data.}}
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00066}00066\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00067}00067\ \ \ \ \ aps\ =\ sorted(aps,\ key=\textcolor{keyword}{lambda}\ k:\ k[\textcolor{stringliteral}{"{}signal"{}}])\ \textcolor{comment}{\#\ Sort\ networks\ by\ signal\ strength.}}
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00068}00068\ \ \ \ \ closest\_ap\_location\ =\ \{\}\ \textcolor{comment}{\#\ Dictionary\ to\ hold\ the\ location\ of\ the\ closest\ access\ point.}}
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00070}00070\ \ \ \ \ \textcolor{comment}{\#\ Loop\ through\ sorted\ access\ points\ and\ find\ the\ first\ one\ with\ a\ known\ location.}}
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00071}00071\ \ \ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ aps:}
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00072}00072\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ i[\textcolor{stringliteral}{"{}mac"{}}]\ \textcolor{keywordflow}{in}\ data:}
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00073}00073\ \ \ \ \ \ \ \ \ \ \ \ \ closest\_ap\_location\ =\ data[i[\textcolor{stringliteral}{"{}mac"{}}]]}
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00074}00074\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break}}
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00075}00075\ }
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00076}00076\ \ \ \ \ \textcolor{keywordflow}{return}\ closest\_ap\_location\ \textcolor{comment}{\#\ Return\ the\ location\ of\ the\ closest\ access\ point.}}
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00078}00078\ }
+\DoxyCodeLine{\Hypertarget{geolocation__data_8py_source_l00079}00079\ print(get\_closest\_ap())\ \textcolor{comment}{\#\ Print\ details\ of\ the\ closest\ Wi-\/Fi\ access\ point.}}
+
+\end{DoxyCode}

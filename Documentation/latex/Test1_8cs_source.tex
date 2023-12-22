@@ -1,0 +1,92 @@
+\doxysection{Test1.\+cs}
+\hypertarget{Test1_8cs_source}{}\label{Test1_8cs_source}\index{compact-\/ariel-\/system/Scripts/Test1.cs@{compact-\/ariel-\/system/Scripts/Test1.cs}}
+\mbox{\hyperlink{Test1_8cs}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00001}00001\ \textcolor{keyword}{using\ }UnityEngine;}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00002}00002\ \textcolor{keyword}{using\ }UnityEngine.UI;}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00003}00003\ \textcolor{keyword}{using\ }TMPro;}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00004}00004\ \textcolor{keyword}{using\ }System.Collections;}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00005}00005\ \textcolor{keyword}{using\ }UnityEngine.Networking;}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00006}00006\ \textcolor{keyword}{using\ }System.Collections.Generic;}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00016}\mbox{\hyperlink{classDataUpdaterGoogleSheets1}{00016}}\ \textcolor{keyword}{public}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classDataUpdaterGoogleSheets1}{DataUpdaterGoogleSheets1}}\ :\ MonoBehaviour}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00017}00017\ \{}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00018}\mbox{\hyperlink{classDataUpdaterGoogleSheets1_a1825d96fdb46caf67a256b21ca497b70}{00018}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{classDataUpdaterGoogleSheets1_a1825d96fdb46caf67a256b21ca497b70}{spreadsheetId}}\ =\ \textcolor{stringliteral}{"{}your\_spreadsheet\_id"{}};\ \textcolor{comment}{//\ Replace\ with\ your\ actual\ spreadsheet\ ID.}}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00019}\mbox{\hyperlink{classDataUpdaterGoogleSheets1_a177a462ad45d0ae17ca4ff3a6f6e502f}{00019}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{classDataUpdaterGoogleSheets1_a177a462ad45d0ae17ca4ff3a6f6e502f}{apiKey}}\ =\ \textcolor{stringliteral}{"{}your\_api\_key"{}};\ \textcolor{comment}{//\ Replace\ with\ your\ actual\ API\ key.}}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00020}\mbox{\hyperlink{classDataUpdaterGoogleSheets1_afcb888b576c29b9f4f56c4a248c05180}{00020}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{classDataUpdaterGoogleSheets1_afcb888b576c29b9f4f56c4a248c05180}{sheetName}}\ =\ \textcolor{stringliteral}{"{}Sheet1!A1:H"{}};\ \textcolor{comment}{//\ The\ name\ and\ range\ of\ the\ sheet\ to\ access.}}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00021}\mbox{\hyperlink{classDataUpdaterGoogleSheets1_a8acac1c8f1d65306433531b016ebb651}{00021}}\ \ \ \ \ \textcolor{keyword}{public}\ TMP\_InputField\ \mbox{\hyperlink{classDataUpdaterGoogleSheets1_a8acac1c8f1d65306433531b016ebb651}{inputField}};\ \textcolor{comment}{//\ Reference\ to\ the\ TMP\_InputField\ where\ the\ data\ will\ be\ displayed.}}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00028}00028\ \ \ \ \ \textcolor{keywordtype}{void}\ Start()}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00029}00029\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00030}00030\ \ \ \ \ \ \ \ \ StartCoroutine(GetData());\ \textcolor{comment}{//\ Fetch\ data\ initially.}}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00031}00031\ \ \ \ \ \ \ \ \ InvokeRepeating(\textcolor{stringliteral}{"{}UpdateData"{}},\ 5f,\ 5f);\ \textcolor{comment}{//\ Set\ up\ repeated\ updates\ every\ 5\ seconds.}}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00032}00032\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00039}00039\ \ \ \ \ \textcolor{keywordtype}{void}\ UpdateData()}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00040}00040\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00041}00041\ \ \ \ \ \ \ \ \ StartCoroutine(GetData());}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00042}00042\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00047}00047\ \ \ \ \ [System.Serializable]}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00048}\mbox{\hyperlink{classDataUpdaterGoogleSheets1_1_1SheetsApiResponse}{00048}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classDataUpdaterGoogleSheets1_1_1SheetsApiResponse}{SheetsApiResponse}}}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00049}00049\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00050}\mbox{\hyperlink{classDataUpdaterGoogleSheets1_1_1SheetsApiResponse_ad82996b55f12113dfb6877d30d462737}{00050}}\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{classDataUpdaterGoogleSheets1_1_1SheetsApiResponse_ad82996b55f12113dfb6877d30d462737}{range}};\ \textcolor{comment}{//\ The\ cell\ range\ fetched.}}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00051}\mbox{\hyperlink{classDataUpdaterGoogleSheets1_1_1SheetsApiResponse_a219e1abf528e5ec0bd1add62a977c20e}{00051}}\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{classDataUpdaterGoogleSheets1_1_1SheetsApiResponse_a219e1abf528e5ec0bd1add62a977c20e}{majorDimension}};\ \textcolor{comment}{//\ The\ major\ dimension\ of\ the\ data\ (ROWS\ or\ COLUMNS).}}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00052}\mbox{\hyperlink{classDataUpdaterGoogleSheets1_1_1SheetsApiResponse_a2aed8da42d1913d92ab0c6194d0aec54}{00052}}\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{string}[][]\ \mbox{\hyperlink{classDataUpdaterGoogleSheets1_1_1SheetsApiResponse_a2aed8da42d1913d92ab0c6194d0aec54}{values}};\ \textcolor{comment}{//\ The\ values\ fetched\ from\ the\ sheet.}}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00059}\mbox{\hyperlink{classDataUpdaterGoogleSheets1_1_1SheetsApiResponse_a4678020b9779a899faa84217e5a0482c}{00059}}\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \mbox{\hyperlink{classDataUpdaterGoogleSheets1_1_1SheetsApiResponse}{SheetsApiResponse}}\ \mbox{\hyperlink{classDataUpdaterGoogleSheets1_1_1SheetsApiResponse_a4678020b9779a899faa84217e5a0482c}{FromJson}}(\textcolor{keywordtype}{string}\ json)}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00060}00060\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00061}00061\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classDataUpdaterGoogleSheets1_1_1SheetsApiResponse}{SheetsApiResponse}}\ sheetsApiResponse\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{classDataUpdaterGoogleSheets1_1_1SheetsApiResponse}{SheetsApiResponse}}();}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ JsonUtility.FromJsonOverwrite(json,\ sheetsApiResponse);}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00063}00063\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ sheetsApiResponse;}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00064}00064\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00065}00065\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00073}00073\ \ \ \ \ IEnumerator\ GetData()}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00074}00074\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00075}00075\ \ \ \ \ \ \ \ \ Debug.Log(\textcolor{stringliteral}{"{}Fetching\ data\ from\ Google\ Sheets..."{}});}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00076}00076\ }
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00077}00077\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ url\ =\ \$\textcolor{stringliteral}{"{}https://sheets.googleapis.com/v4/spreadsheets/\{spreadsheetId\}/values/\{sheetName\}?alt=json\&key=\{apiKey\}"{}};}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00078}00078\ }
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00079}00079\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using}\ (UnityWebRequest\ www\ =\ UnityWebRequest.Get(url))}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00080}00080\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00081}00081\ \ \ \ \ \ \ \ \ \ \ \ \ yield\ \textcolor{keywordflow}{return}\ www.SendWebRequest();}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00082}00082\ }
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00083}00083\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (www.result\ !=\ UnityWebRequest.Result.Success)}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00084}00084\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00085}00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Debug.LogError(\$\textcolor{stringliteral}{"{}Failed\ to\ fetch\ data.\ Error:\ \{www.error\}"{}});}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00086}00086\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00087}00087\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00088}00088\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00089}00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Extract\ and\ print\ the\ json\ response}}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00090}00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ jsonResult\ =\ www.downloadHandler.text;}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Debug.Log(\textcolor{stringliteral}{"{}Google\ Sheets\ data\ fetched\ successfully."{}});}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Debug.Log(\$\textcolor{stringliteral}{"{}JSON\ Result:\ \{www.downloadHandler.text\}"{}});}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00093}00093\ }
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00094}00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Parse\ the\ JSON\ response}}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SheetsApiResponse\ response\ =\ SheetsApiResponse.\mbox{\hyperlink{classDataUpdaterGoogleSheets1_1_1SheetsApiResponse_a4678020b9779a899faa84217e5a0482c}{FromJson}}(jsonResult);}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00096}00096\ }
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00097}00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ If\ there\ are\ values,\ get\ the\ last\ row\ and\ update\ the\ input\ field}}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00098}00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (response.values\ !=\ \textcolor{keyword}{null}\ \&\&\ response.values.Length\ >\ 0)}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00099}00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00100}00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}[]\ lastRow\ =\ response.\mbox{\hyperlink{classDataUpdaterGoogleSheets1_1_1SheetsApiResponse_a2aed8da42d1913d92ab0c6194d0aec54}{values}}[response.values.Length\ -\/\ 1];}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00101}00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ displayText\ =\ \textcolor{keywordtype}{string}.Join(\textcolor{stringliteral}{"{},\ "{}},\ lastRow);\ \textcolor{comment}{//\ Combine\ the\ row's\ values\ for\ display}}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00102}00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{classDataUpdaterGoogleSheets1_a8acac1c8f1d65306433531b016ebb651}{inputField}}\ !=\ \textcolor{keyword}{null})}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00103}00103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00104}00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inputField.text\ =\ displayText;\ \textcolor{comment}{//\ Set\ the\ text\ of\ the\ InputField}}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00105}00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00106}00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00107}00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00108}00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Debug.LogError(\textcolor{stringliteral}{"{}InputField\ is\ not\ assigned."{}});}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00109}00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00110}00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00111}00111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00112}00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00113}00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Debug.Log(\textcolor{stringliteral}{"{}No\ data\ found\ in\ the\ specified\ range."{}});}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00114}00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00115}00115\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00116}00116\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00117}00117\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Test1_8cs_source_l00118}00118\ \}}
+
+\end{DoxyCode}

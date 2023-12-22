@@ -1,0 +1,335 @@
+\doxysection{store\+\_\+sensor\+\_\+data Namespace Reference}
+\hypertarget{namespacestore__sensor__data}{}\label{namespacestore__sensor__data}\index{store\_sensor\_data@{store\_sensor\_data}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacestore__sensor__data_a7d29dbd368876031e984e2f768812808}{append\+\_\+values}} (spreadsheet\+\_\+id, range\+\_\+name, value\+\_\+input\+\_\+option, \+\_\+values, \mbox{\hyperlink{namespacestore__sensor__data_a8320cde1ad26f3101a608ea7e5b01c15}{creds}})
+\begin{DoxyCompactList}\small\item\em Appends the final data row in the Google Sheets. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacestore__sensor__data_a934c2cac1ac65dc25c13c52a54d5836a}{initialize\+\_\+thermal\+\_\+sensor}} (\mbox{\hyperlink{namespacestore__sensor__data_addfee28075d1b11aba375b6f6e430d13}{i2c}})
+\begin{DoxyCompactList}\small\item\em Initializes the MLX90640 thermal sensor with default configuration. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+str \mbox{\hyperlink{namespacestore__sensor__data_aebd1dc5a480e7b8b18df38a99865ec36}{SAMPLE\+\_\+\+SPREADSHEET\+\_\+\+ID}} = \textquotesingle{}your\+\_\+sheet\+\_\+id\textquotesingle{}
+\item 
+str \mbox{\hyperlink{namespacestore__sensor__data_aae090abef7525b751e8608ff9ba199cf}{SAMPLE\+\_\+\+RANGE\+\_\+\+NAME}} = \textquotesingle{}Sheet1!\+A\+:H\textquotesingle{}
+\item 
+list \mbox{\hyperlink{namespacestore__sensor__data_adf68962a7719646ff6f651980c06705f}{scope}} = \mbox{[}\textquotesingle{}https\+://www.\+googleapis.\+com/auth/spreadsheets\textquotesingle{}\mbox{]}
+\item 
+\mbox{\hyperlink{namespacestore__sensor__data_a8320cde1ad26f3101a608ea7e5b01c15}{creds}} = None
+\begin{DoxyCompactList}\small\item\em Authenticates the user with Google Sheets API using OAuth 2.\+0. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacestore__sensor__data_a08fe9455760539e4b757c83e612abf1c}{flow}}
+\item 
+\mbox{\hyperlink{namespacestore__sensor__data_a4eb1d0653e9b82911473b7278c92a990}{service}} = build(\textquotesingle{}sheets\textquotesingle{}, \textquotesingle{}v4\textquotesingle{}, credentials=\mbox{\hyperlink{namespacestore__sensor__data_a8320cde1ad26f3101a608ea7e5b01c15}{creds}})
+\begin{DoxyCompactList}\small\item\em Main code block. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacestore__sensor__data_addfee28075d1b11aba375b6f6e430d13}{i2c}} = busio.\+I2C(board.\+SCL, board.\+SDA, frequency=800000)
+\item 
+\mbox{\hyperlink{namespacestore__sensor__data_a2592746a1d3b28d557351a7cced3a17f}{other\+\_\+i2c}} = busio.\+I2C(board.\+SCL, board.\+SDA)
+\item 
+\mbox{\hyperlink{namespacestore__sensor__data_a3fc830bda9f4a247a0a88d787ff07894}{scd4x}} = adafruit\+\_\+scd4x.\+SCD4X(\mbox{\hyperlink{namespacestore__sensor__data_addfee28075d1b11aba375b6f6e430d13}{i2c}})
+\item 
+\mbox{\hyperlink{namespacestore__sensor__data_a473f9939538a3710872920cf4947ad1e}{thermal\+\_\+sensor}} = \mbox{\hyperlink{namespacestore__sensor__data_a934c2cac1ac65dc25c13c52a54d5836a}{initialize\+\_\+thermal\+\_\+sensor}}(\mbox{\hyperlink{namespacestore__sensor__data_addfee28075d1b11aba375b6f6e430d13}{i2c}})
+\item 
+\mbox{\hyperlink{namespacestore__sensor__data_aea5ed13b6a7cdd9fc6802367e1e34605}{ap\+\_\+dict}} = get\+\_\+closest\+\_\+ap()
+\item 
+\mbox{\hyperlink{namespacestore__sensor__data_abb442a86f256f79df13d913ddddd8b75}{building}}
+\item 
+\mbox{\hyperlink{namespacestore__sensor__data_aca32bdaea50b28d4467094a9761ceeba}{floor}}
+\item 
+\mbox{\hyperlink{namespacestore__sensor__data_a5c7e5045da2650480517ecef2c18972c}{room}}
+\item 
+\mbox{\hyperlink{namespacestore__sensor__data_a408d2a82f83b3a45cb56ed41a7295330}{occupant}} = get\+\_\+occupancy\+\_\+count(\mbox{\hyperlink{namespacestore__sensor__data_a473f9939538a3710872920cf4947ad1e}{thermal\+\_\+sensor}}, save\+\_\+image=True)
+\item 
+list \mbox{\hyperlink{namespacestore__sensor__data_a83967afc98c16cbd23a871bfe8ee9e21}{values}} = \mbox{[}\mbox{[}str(datetime.\+datetime.\+now()), \mbox{\hyperlink{namespacestore__sensor__data_abb442a86f256f79df13d913ddddd8b75}{building}}, \mbox{\hyperlink{namespacestore__sensor__data_aca32bdaea50b28d4467094a9761ceeba}{floor}}, \mbox{\hyperlink{namespacestore__sensor__data_a5c7e5045da2650480517ecef2c18972c}{room}}, scd4x.\+CO2, scd4x.\+temperature, scd4x.\+relative\+\_\+humidity, \mbox{\hyperlink{namespacestore__sensor__data_a408d2a82f83b3a45cb56ed41a7295330}{occupant}}\mbox{]}\mbox{]}
+\item 
+\mbox{\hyperlink{namespacestore__sensor__data_addf9c66724ef271da43839a6541dec07}{sheet}} = service.\+spreadsheets()
+\item 
+list \mbox{\hyperlink{namespacestore__sensor__data_acddce4f926939f16025a4c869ccd0f43}{result}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacestore__sensor__data_a7d29dbd368876031e984e2f768812808}\label{namespacestore__sensor__data_a7d29dbd368876031e984e2f768812808} 
+\index{store\_sensor\_data@{store\_sensor\_data}!append\_values@{append\_values}}
+\index{append\_values@{append\_values}!store\_sensor\_data@{store\_sensor\_data}}
+\doxysubsubsection{\texorpdfstring{append\_values()}{append\_values()}}
+{\footnotesize\ttfamily store\+\_\+sensor\+\_\+data.\+append\+\_\+values (\begin{DoxyParamCaption}\item[{}]{spreadsheet\+\_\+id,  }\item[{}]{range\+\_\+name,  }\item[{}]{value\+\_\+input\+\_\+option,  }\item[{}]{\+\_\+values,  }\item[{}]{creds }\end{DoxyParamCaption})}
+
+
+
+Appends the final data row in the Google Sheets. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em spreadsheet\+\_\+id} & The ID of the spreadsheet. \\
+\hline
+{\em range\+\_\+name} & The range of cells to interact with. \\
+\hline
+{\em value\+\_\+input\+\_\+option} & Specifies how the input data should be interpreted. \\
+\hline
+{\em \+\_\+values} & The data values to append. \\
+\hline
+{\em creds} & The authenticated credentials. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The result of the append operation or an error. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{store__sensor__data_8py_source_l00057}{57}} of file \mbox{\hyperlink{store__sensor__data_8py_source}{store\+\_\+sensor\+\_\+data.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00057\ \textcolor{keyword}{def\ }append\_values(spreadsheet\_id,\ range\_name,\ value\_input\_option,\ \_values,\ creds):}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ service\ =\ build(\textcolor{stringliteral}{'sheets'},\ \textcolor{stringliteral}{'v4'},\ credentials=creds)}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ body\ =\ \{\textcolor{stringliteral}{'values'}:\ \_values\}}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ result\ =\ service.spreadsheets().values().append(}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ spreadsheetId=spreadsheet\_id,}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ range=range\_name,}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ valueInputOption=value\_input\_option,}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ insertDataOption=\textcolor{stringliteral}{"{}INSERT\_ROWS"{}},}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ body=body).execute()}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}Data\ appended"{}})}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordflow}{except}\ HttpError\ \textcolor{keyword}{as}\ error:}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ print(f\textcolor{stringliteral}{"{}An\ error\ occurred:\ \{error\}"{}})}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ error}
+\DoxyCodeLine{00072\ }
+
+\end{DoxyCode}
+\Hypertarget{namespacestore__sensor__data_a934c2cac1ac65dc25c13c52a54d5836a}\label{namespacestore__sensor__data_a934c2cac1ac65dc25c13c52a54d5836a} 
+\index{store\_sensor\_data@{store\_sensor\_data}!initialize\_thermal\_sensor@{initialize\_thermal\_sensor}}
+\index{initialize\_thermal\_sensor@{initialize\_thermal\_sensor}!store\_sensor\_data@{store\_sensor\_data}}
+\doxysubsubsection{\texorpdfstring{initialize\_thermal\_sensor()}{initialize\_thermal\_sensor()}}
+{\footnotesize\ttfamily store\+\_\+sensor\+\_\+data.\+initialize\+\_\+thermal\+\_\+sensor (\begin{DoxyParamCaption}\item[{}]{i2c }\end{DoxyParamCaption})}
+
+
+
+Initializes the MLX90640 thermal sensor with default configuration. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i2c} & The I2C bus used to communicate with the sensor. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The initialized sensor object. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{store__sensor__data_8py_source_l00076}{76}} of file \mbox{\hyperlink{store__sensor__data_8py_source}{store\+\_\+sensor\+\_\+data.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00076\ \textcolor{keyword}{def\ }initialize\_thermal\_sensor(i2c):}
+\DoxyCodeLine{00077\ \ \ \ \ sensor\ =\ adafruit\_mlx90640.MLX90640(i2c)}
+\DoxyCodeLine{00078\ \ \ \ \ sensor.refresh\_rate\ =\ adafruit\_mlx90640.RefreshRate.REFRESH\_2\_HZ\ \ \textcolor{comment}{\#\ Set\ refresh\ rate}}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordflow}{return}\ sensor}
+\DoxyCodeLine{00080\ }
+
+\end{DoxyCode}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespacestore__sensor__data_aea5ed13b6a7cdd9fc6802367e1e34605}\label{namespacestore__sensor__data_aea5ed13b6a7cdd9fc6802367e1e34605} 
+\index{store\_sensor\_data@{store\_sensor\_data}!ap\_dict@{ap\_dict}}
+\index{ap\_dict@{ap\_dict}!store\_sensor\_data@{store\_sensor\_data}}
+\doxysubsubsection{\texorpdfstring{ap\_dict}{ap\_dict}}
+{\footnotesize\ttfamily store\+\_\+sensor\+\_\+data.\+ap\+\_\+dict = get\+\_\+closest\+\_\+ap()}
+
+
+
+Definition at line \mbox{\hyperlink{store__sensor__data_8py_source_l00091}{91}} of file \mbox{\hyperlink{store__sensor__data_8py_source}{store\+\_\+sensor\+\_\+data.\+py}}.
+
+\Hypertarget{namespacestore__sensor__data_abb442a86f256f79df13d913ddddd8b75}\label{namespacestore__sensor__data_abb442a86f256f79df13d913ddddd8b75} 
+\index{store\_sensor\_data@{store\_sensor\_data}!building@{building}}
+\index{building@{building}!store\_sensor\_data@{store\_sensor\_data}}
+\doxysubsubsection{\texorpdfstring{building}{building}}
+{\footnotesize\ttfamily store\+\_\+sensor\+\_\+data.\+building}
+
+
+
+Definition at line \mbox{\hyperlink{store__sensor__data_8py_source_l00092}{92}} of file \mbox{\hyperlink{store__sensor__data_8py_source}{store\+\_\+sensor\+\_\+data.\+py}}.
+
+\Hypertarget{namespacestore__sensor__data_a8320cde1ad26f3101a608ea7e5b01c15}\label{namespacestore__sensor__data_a8320cde1ad26f3101a608ea7e5b01c15} 
+\index{store\_sensor\_data@{store\_sensor\_data}!creds@{creds}}
+\index{creds@{creds}!store\_sensor\_data@{store\_sensor\_data}}
+\doxysubsubsection{\texorpdfstring{creds}{creds}}
+{\footnotesize\ttfamily store\+\_\+sensor\+\_\+data.\+creds = None}
+
+
+
+Authenticates the user with Google Sheets API using OAuth 2.\+0. 
+
+It checks for existing credentials or creates new ones if necessary. 
+
+Definition at line \mbox{\hyperlink{store__sensor__data_8py_source_l00037}{37}} of file \mbox{\hyperlink{store__sensor__data_8py_source}{store\+\_\+sensor\+\_\+data.\+py}}.
+
+\Hypertarget{namespacestore__sensor__data_aca32bdaea50b28d4467094a9761ceeba}\label{namespacestore__sensor__data_aca32bdaea50b28d4467094a9761ceeba} 
+\index{store\_sensor\_data@{store\_sensor\_data}!floor@{floor}}
+\index{floor@{floor}!store\_sensor\_data@{store\_sensor\_data}}
+\doxysubsubsection{\texorpdfstring{floor}{floor}}
+{\footnotesize\ttfamily store\+\_\+sensor\+\_\+data.\+floor}
+
+
+
+Definition at line \mbox{\hyperlink{store__sensor__data_8py_source_l00092}{92}} of file \mbox{\hyperlink{store__sensor__data_8py_source}{store\+\_\+sensor\+\_\+data.\+py}}.
+
+\Hypertarget{namespacestore__sensor__data_a08fe9455760539e4b757c83e612abf1c}\label{namespacestore__sensor__data_a08fe9455760539e4b757c83e612abf1c} 
+\index{store\_sensor\_data@{store\_sensor\_data}!flow@{flow}}
+\index{flow@{flow}!store\_sensor\_data@{store\_sensor\_data}}
+\doxysubsubsection{\texorpdfstring{flow}{flow}}
+{\footnotesize\ttfamily store\+\_\+sensor\+\_\+data.\+flow}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ InstalledAppFlow.from\_client\_secrets\_file(}
+\DoxyCodeLine{00002\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'credentials.json'},\ scope)}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{store__sensor__data_8py_source_l00044}{44}} of file \mbox{\hyperlink{store__sensor__data_8py_source}{store\+\_\+sensor\+\_\+data.\+py}}.
+
+\Hypertarget{namespacestore__sensor__data_addfee28075d1b11aba375b6f6e430d13}\label{namespacestore__sensor__data_addfee28075d1b11aba375b6f6e430d13} 
+\index{store\_sensor\_data@{store\_sensor\_data}!i2c@{i2c}}
+\index{i2c@{i2c}!store\_sensor\_data@{store\_sensor\_data}}
+\doxysubsubsection{\texorpdfstring{i2c}{i2c}}
+{\footnotesize\ttfamily store\+\_\+sensor\+\_\+data.\+i2c = busio.\+I2C(board.\+SCL, board.\+SDA, frequency=800000)}
+
+
+
+Definition at line \mbox{\hyperlink{store__sensor__data_8py_source_l00085}{85}} of file \mbox{\hyperlink{store__sensor__data_8py_source}{store\+\_\+sensor\+\_\+data.\+py}}.
+
+\Hypertarget{namespacestore__sensor__data_a408d2a82f83b3a45cb56ed41a7295330}\label{namespacestore__sensor__data_a408d2a82f83b3a45cb56ed41a7295330} 
+\index{store\_sensor\_data@{store\_sensor\_data}!occupant@{occupant}}
+\index{occupant@{occupant}!store\_sensor\_data@{store\_sensor\_data}}
+\doxysubsubsection{\texorpdfstring{occupant}{occupant}}
+{\footnotesize\ttfamily store\+\_\+sensor\+\_\+data.\+occupant = get\+\_\+occupancy\+\_\+count(\mbox{\hyperlink{namespacestore__sensor__data_a473f9939538a3710872920cf4947ad1e}{thermal\+\_\+sensor}}, save\+\_\+image=True)}
+
+
+
+Definition at line \mbox{\hyperlink{store__sensor__data_8py_source_l00096}{96}} of file \mbox{\hyperlink{store__sensor__data_8py_source}{store\+\_\+sensor\+\_\+data.\+py}}.
+
+\Hypertarget{namespacestore__sensor__data_a2592746a1d3b28d557351a7cced3a17f}\label{namespacestore__sensor__data_a2592746a1d3b28d557351a7cced3a17f} 
+\index{store\_sensor\_data@{store\_sensor\_data}!other\_i2c@{other\_i2c}}
+\index{other\_i2c@{other\_i2c}!store\_sensor\_data@{store\_sensor\_data}}
+\doxysubsubsection{\texorpdfstring{other\_i2c}{other\_i2c}}
+{\footnotesize\ttfamily store\+\_\+sensor\+\_\+data.\+other\+\_\+i2c = busio.\+I2C(board.\+SCL, board.\+SDA)}
+
+
+
+Definition at line \mbox{\hyperlink{store__sensor__data_8py_source_l00086}{86}} of file \mbox{\hyperlink{store__sensor__data_8py_source}{store\+\_\+sensor\+\_\+data.\+py}}.
+
+\Hypertarget{namespacestore__sensor__data_acddce4f926939f16025a4c869ccd0f43}\label{namespacestore__sensor__data_acddce4f926939f16025a4c869ccd0f43} 
+\index{store\_sensor\_data@{store\_sensor\_data}!result@{result}}
+\index{result@{result}!store\_sensor\_data@{store\_sensor\_data}}
+\doxysubsubsection{\texorpdfstring{result}{result}}
+{\footnotesize\ttfamily list store\+\_\+sensor\+\_\+data.\+result}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ sheet.values().get(spreadsheetId=SAMPLE\_SPREADSHEET\_ID,}
+\DoxyCodeLine{00002\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ range=SAMPLE\_RANGE\_NAME).execute()}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{store__sensor__data_8py_source_l00104}{104}} of file \mbox{\hyperlink{store__sensor__data_8py_source}{store\+\_\+sensor\+\_\+data.\+py}}.
+
+\Hypertarget{namespacestore__sensor__data_a5c7e5045da2650480517ecef2c18972c}\label{namespacestore__sensor__data_a5c7e5045da2650480517ecef2c18972c} 
+\index{store\_sensor\_data@{store\_sensor\_data}!room@{room}}
+\index{room@{room}!store\_sensor\_data@{store\_sensor\_data}}
+\doxysubsubsection{\texorpdfstring{room}{room}}
+{\footnotesize\ttfamily store\+\_\+sensor\+\_\+data.\+room}
+
+
+
+Definition at line \mbox{\hyperlink{store__sensor__data_8py_source_l00092}{92}} of file \mbox{\hyperlink{store__sensor__data_8py_source}{store\+\_\+sensor\+\_\+data.\+py}}.
+
+\Hypertarget{namespacestore__sensor__data_aae090abef7525b751e8608ff9ba199cf}\label{namespacestore__sensor__data_aae090abef7525b751e8608ff9ba199cf} 
+\index{store\_sensor\_data@{store\_sensor\_data}!SAMPLE\_RANGE\_NAME@{SAMPLE\_RANGE\_NAME}}
+\index{SAMPLE\_RANGE\_NAME@{SAMPLE\_RANGE\_NAME}!store\_sensor\_data@{store\_sensor\_data}}
+\doxysubsubsection{\texorpdfstring{SAMPLE\_RANGE\_NAME}{SAMPLE\_RANGE\_NAME}}
+{\footnotesize\ttfamily str store\+\_\+sensor\+\_\+data.\+SAMPLE\+\_\+\+RANGE\+\_\+\+NAME = \textquotesingle{}Sheet1!\+A\+:H\textquotesingle{}}
+
+
+
+Definition at line \mbox{\hyperlink{store__sensor__data_8py_source_l00030}{30}} of file \mbox{\hyperlink{store__sensor__data_8py_source}{store\+\_\+sensor\+\_\+data.\+py}}.
+
+\Hypertarget{namespacestore__sensor__data_aebd1dc5a480e7b8b18df38a99865ec36}\label{namespacestore__sensor__data_aebd1dc5a480e7b8b18df38a99865ec36} 
+\index{store\_sensor\_data@{store\_sensor\_data}!SAMPLE\_SPREADSHEET\_ID@{SAMPLE\_SPREADSHEET\_ID}}
+\index{SAMPLE\_SPREADSHEET\_ID@{SAMPLE\_SPREADSHEET\_ID}!store\_sensor\_data@{store\_sensor\_data}}
+\doxysubsubsection{\texorpdfstring{SAMPLE\_SPREADSHEET\_ID}{SAMPLE\_SPREADSHEET\_ID}}
+{\footnotesize\ttfamily str store\+\_\+sensor\+\_\+data.\+SAMPLE\+\_\+\+SPREADSHEET\+\_\+\+ID = \textquotesingle{}your\+\_\+sheet\+\_\+id\textquotesingle{}}
+
+
+
+Definition at line \mbox{\hyperlink{store__sensor__data_8py_source_l00029}{29}} of file \mbox{\hyperlink{store__sensor__data_8py_source}{store\+\_\+sensor\+\_\+data.\+py}}.
+
+\Hypertarget{namespacestore__sensor__data_a3fc830bda9f4a247a0a88d787ff07894}\label{namespacestore__sensor__data_a3fc830bda9f4a247a0a88d787ff07894} 
+\index{store\_sensor\_data@{store\_sensor\_data}!scd4x@{scd4x}}
+\index{scd4x@{scd4x}!store\_sensor\_data@{store\_sensor\_data}}
+\doxysubsubsection{\texorpdfstring{scd4x}{scd4x}}
+{\footnotesize\ttfamily store\+\_\+sensor\+\_\+data.\+scd4x = adafruit\+\_\+scd4x.\+SCD4X(\mbox{\hyperlink{namespacestore__sensor__data_addfee28075d1b11aba375b6f6e430d13}{i2c}})}
+
+
+
+Definition at line \mbox{\hyperlink{store__sensor__data_8py_source_l00087}{87}} of file \mbox{\hyperlink{store__sensor__data_8py_source}{store\+\_\+sensor\+\_\+data.\+py}}.
+
+\Hypertarget{namespacestore__sensor__data_adf68962a7719646ff6f651980c06705f}\label{namespacestore__sensor__data_adf68962a7719646ff6f651980c06705f} 
+\index{store\_sensor\_data@{store\_sensor\_data}!scope@{scope}}
+\index{scope@{scope}!store\_sensor\_data@{store\_sensor\_data}}
+\doxysubsubsection{\texorpdfstring{scope}{scope}}
+{\footnotesize\ttfamily list store\+\_\+sensor\+\_\+data.\+scope = \mbox{[}\textquotesingle{}https\+://www.\+googleapis.\+com/auth/spreadsheets\textquotesingle{}\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{store__sensor__data_8py_source_l00033}{33}} of file \mbox{\hyperlink{store__sensor__data_8py_source}{store\+\_\+sensor\+\_\+data.\+py}}.
+
+\Hypertarget{namespacestore__sensor__data_a4eb1d0653e9b82911473b7278c92a990}\label{namespacestore__sensor__data_a4eb1d0653e9b82911473b7278c92a990} 
+\index{store\_sensor\_data@{store\_sensor\_data}!service@{service}}
+\index{service@{service}!store\_sensor\_data@{store\_sensor\_data}}
+\doxysubsubsection{\texorpdfstring{service}{service}}
+{\footnotesize\ttfamily store\+\_\+sensor\+\_\+data.\+service = build(\textquotesingle{}sheets\textquotesingle{}, \textquotesingle{}v4\textquotesingle{}, credentials=\mbox{\hyperlink{namespacestore__sensor__data_a8320cde1ad26f3101a608ea7e5b01c15}{creds}})}
+
+
+
+Main code block. 
+
+This calls all necessary functions to fetch and append data to Google Sheets. 
+
+Definition at line \mbox{\hyperlink{store__sensor__data_8py_source_l00083}{83}} of file \mbox{\hyperlink{store__sensor__data_8py_source}{store\+\_\+sensor\+\_\+data.\+py}}.
+
+\Hypertarget{namespacestore__sensor__data_addf9c66724ef271da43839a6541dec07}\label{namespacestore__sensor__data_addf9c66724ef271da43839a6541dec07} 
+\index{store\_sensor\_data@{store\_sensor\_data}!sheet@{sheet}}
+\index{sheet@{sheet}!store\_sensor\_data@{store\_sensor\_data}}
+\doxysubsubsection{\texorpdfstring{sheet}{sheet}}
+{\footnotesize\ttfamily store\+\_\+sensor\+\_\+data.\+sheet = service.\+spreadsheets()}
+
+
+
+Definition at line \mbox{\hyperlink{store__sensor__data_8py_source_l00103}{103}} of file \mbox{\hyperlink{store__sensor__data_8py_source}{store\+\_\+sensor\+\_\+data.\+py}}.
+
+\Hypertarget{namespacestore__sensor__data_a473f9939538a3710872920cf4947ad1e}\label{namespacestore__sensor__data_a473f9939538a3710872920cf4947ad1e} 
+\index{store\_sensor\_data@{store\_sensor\_data}!thermal\_sensor@{thermal\_sensor}}
+\index{thermal\_sensor@{thermal\_sensor}!store\_sensor\_data@{store\_sensor\_data}}
+\doxysubsubsection{\texorpdfstring{thermal\_sensor}{thermal\_sensor}}
+{\footnotesize\ttfamily store\+\_\+sensor\+\_\+data.\+thermal\+\_\+sensor = \mbox{\hyperlink{namespacestore__sensor__data_a934c2cac1ac65dc25c13c52a54d5836a}{initialize\+\_\+thermal\+\_\+sensor}}(\mbox{\hyperlink{namespacestore__sensor__data_addfee28075d1b11aba375b6f6e430d13}{i2c}})}
+
+
+
+Definition at line \mbox{\hyperlink{store__sensor__data_8py_source_l00089}{89}} of file \mbox{\hyperlink{store__sensor__data_8py_source}{store\+\_\+sensor\+\_\+data.\+py}}.
+
+\Hypertarget{namespacestore__sensor__data_a83967afc98c16cbd23a871bfe8ee9e21}\label{namespacestore__sensor__data_a83967afc98c16cbd23a871bfe8ee9e21} 
+\index{store\_sensor\_data@{store\_sensor\_data}!values@{values}}
+\index{values@{values}!store\_sensor\_data@{store\_sensor\_data}}
+\doxysubsubsection{\texorpdfstring{values}{values}}
+{\footnotesize\ttfamily list store\+\_\+sensor\+\_\+data.\+values = \mbox{[}\mbox{[}str(datetime.\+datetime.\+now()), \mbox{\hyperlink{namespacestore__sensor__data_abb442a86f256f79df13d913ddddd8b75}{building}}, \mbox{\hyperlink{namespacestore__sensor__data_aca32bdaea50b28d4467094a9761ceeba}{floor}}, \mbox{\hyperlink{namespacestore__sensor__data_a5c7e5045da2650480517ecef2c18972c}{room}}, scd4x.\+CO2, scd4x.\+temperature, scd4x.\+relative\+\_\+humidity, \mbox{\hyperlink{namespacestore__sensor__data_a408d2a82f83b3a45cb56ed41a7295330}{occupant}}\mbox{]}\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{store__sensor__data_8py_source_l00099}{99}} of file \mbox{\hyperlink{store__sensor__data_8py_source}{store\+\_\+sensor\+\_\+data.\+py}}.
+

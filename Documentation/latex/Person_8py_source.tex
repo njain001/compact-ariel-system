@@ -1,0 +1,113 @@
+\doxysection{Person.\+py}
+\hypertarget{Person_8py_source}{}\label{Person_8py_source}\index{compact-\/ariel-\/system/sensor/Person.py@{compact-\/ariel-\/system/sensor/Person.py}}
+\mbox{\hyperlink{Person_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00001}\mbox{\hyperlink{namespacePerson}{00001}}\ \textcolor{keyword}{from}\ random\ \textcolor{keyword}{import}\ randint}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00002}00002\ \textcolor{keyword}{import}\ time}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00004}\mbox{\hyperlink{classPerson_1_1MyPerson}{00004}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classPerson_1_1MyPerson}{MyPerson}}:}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00005}00005\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00006}00006\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00007}\mbox{\hyperlink{classPerson_1_1MyPerson_aecc6a2c00be4c7ff66659b35a52f2934}{00007}}\ \ \ \ \ tracks\ =\ []\ \ \textcolor{comment}{\#\ Static\ list\ shared\ by\ all\ instances\ to\ track\ multiple\ persons}}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00009}\mbox{\hyperlink{classPerson_1_1MyPerson_a98872cc076b71219300888da4815387a}{00009}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classPerson_1_1MyPerson_a98872cc076b71219300888da4815387a}{\_\_init\_\_}}(self,\ i,\ xi,\ yi,\ max\_age):}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00010}00010\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00015}\mbox{\hyperlink{classPerson_1_1MyPerson_a0b68ab3a9fa09bce125c70d513822038}{00015}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classPerson_1_1MyPerson_a0b68ab3a9fa09bce125c70d513822038}{i}}\ =\ i\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ ID\ for\ the\ person}}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00016}\mbox{\hyperlink{classPerson_1_1MyPerson_a2e75047ed687369021fe32f8836952b7}{00016}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classPerson_1_1MyPerson_a2e75047ed687369021fe32f8836952b7}{x}}\ =\ xi\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ X-\/coordinate}}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00017}\mbox{\hyperlink{classPerson_1_1MyPerson_a167c176d77115349b2c3d3293d5d3786}{00017}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classPerson_1_1MyPerson_a167c176d77115349b2c3d3293d5d3786}{y}}\ =\ yi\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Y-\/coordinate}}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00018}\mbox{\hyperlink{classPerson_1_1MyPerson_a5abcc2706d12825c921585f2dc7b8d1d}{00018}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classPerson_1_1MyPerson_aecc6a2c00be4c7ff66659b35a52f2934}{tracks}}\mbox{\hyperlink{classPerson_1_1MyPerson_a5abcc2706d12825c921585f2dc7b8d1d}{tracks}}\ =\ []\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Track\ movement\ history\ of\ this\ person}}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00019}\mbox{\hyperlink{classPerson_1_1MyPerson_a271748c5a974d906c25763cff5469a35}{00019}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classPerson_1_1MyPerson_a271748c5a974d906c25763cff5469a35}{R}}\ =\ randint(0,\ 255)\ \textcolor{comment}{\#\ Random\ color\ assigned\ to\ the\ person\ for\ identification\ in\ visualization}}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00020}\mbox{\hyperlink{classPerson_1_1MyPerson_a3090ffc4fe733a58b82b707fad71cb44}{00020}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classPerson_1_1MyPerson_a3090ffc4fe733a58b82b707fad71cb44}{G}}\ =\ randint(0,\ 255)}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00021}\mbox{\hyperlink{classPerson_1_1MyPerson_adecb506ad4f5bea3982555a516dbbe7a}{00021}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classPerson_1_1MyPerson_adecb506ad4f5bea3982555a516dbbe7a}{B}}\ =\ randint(0,\ 255)}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00022}\mbox{\hyperlink{classPerson_1_1MyPerson_a26593f06fb5ece992a8daccfa44a5d1e}{00022}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classPerson_1_1MyPerson_a26593f06fb5ece992a8daccfa44a5d1e}{done}}\ =\ \textcolor{keyword}{False}\ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Flag\ to\ mark\ if\ tracking\ is\ done}}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00023}\mbox{\hyperlink{classPerson_1_1MyPerson_a2a19eab6bc06f79ff3dbc8fa1697c275}{00023}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classPerson_1_1MyPerson_a2a19eab6bc06f79ff3dbc8fa1697c275}{state}}\ =\ \textcolor{stringliteral}{'0'}\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ State\ of\ the\ person\ (e.g.,\ moving,\ stationary)}}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00024}\mbox{\hyperlink{classPerson_1_1MyPerson_a80bd212772aee9022587a3613adb755e}{00024}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classPerson_1_1MyPerson_a80bd212772aee9022587a3613adb755e}{age}}\ =\ 0\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Age\ of\ the\ track\ (used\ for\ timing\ out\ old\ tracks)}}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00025}\mbox{\hyperlink{classPerson_1_1MyPerson_a41bf4e40f85acd3d4ebcfc2affedcfe3}{00025}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classPerson_1_1MyPerson_a41bf4e40f85acd3d4ebcfc2affedcfe3}{max\_age}}\ =\ max\_age\ \ \ \textcolor{comment}{\#\ Maximum\ age\ after\ which\ the\ track\ is\ discarded}}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00026}\mbox{\hyperlink{classPerson_1_1MyPerson_abf6acd4de6a7c6aa1ef02e38523d2d97}{00026}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classPerson_1_1MyPerson_abf6acd4de6a7c6aa1ef02e38523d2d97}{dir}}\ =\ \textcolor{keywordtype}{None}\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Direction\ of\ movement}}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00028}\mbox{\hyperlink{classPerson_1_1MyPerson_a4cb96b24111d2673b3780115ce1011e5}{00028}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classPerson_1_1MyPerson_a4cb96b24111d2673b3780115ce1011e5}{getRGB}}(self):}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00029}00029\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00031}00031\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (self.\mbox{\hyperlink{classPerson_1_1MyPerson_a271748c5a974d906c25763cff5469a35}{R}},\ self.\mbox{\hyperlink{classPerson_1_1MyPerson_a3090ffc4fe733a58b82b707fad71cb44}{G}},\ self.\mbox{\hyperlink{classPerson_1_1MyPerson_adecb506ad4f5bea3982555a516dbbe7a}{B}})}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00033}\mbox{\hyperlink{classPerson_1_1MyPerson_a21ef438af9c6808d6088cfbbc0e5879d}{00033}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classPerson_1_1MyPerson_a21ef438af9c6808d6088cfbbc0e5879d}{getTracks}}(self):}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00034}00034\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00036}00036\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{classPerson_1_1MyPerson_aecc6a2c00be4c7ff66659b35a52f2934}{tracks}}\mbox{\hyperlink{classPerson_1_1MyPerson_a5abcc2706d12825c921585f2dc7b8d1d}{tracks}}}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00038}\mbox{\hyperlink{classPerson_1_1MyPerson_adcd92033e731422212e39a3c04ef1a3b}{00038}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classPerson_1_1MyPerson_adcd92033e731422212e39a3c04ef1a3b}{getId}}(self):}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00039}00039\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00041}00041\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{classPerson_1_1MyPerson_a0b68ab3a9fa09bce125c70d513822038}{i}}}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00043}\mbox{\hyperlink{classPerson_1_1MyPerson_ae6a52961da953ea9d9af02856596278e}{00043}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classPerson_1_1MyPerson_ae6a52961da953ea9d9af02856596278e}{getState}}(self):}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00044}00044\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00046}00046\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{classPerson_1_1MyPerson_a2a19eab6bc06f79ff3dbc8fa1697c275}{state}}}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00048}\mbox{\hyperlink{classPerson_1_1MyPerson_ac73fdaf279d3bcea91227865b1a032f1}{00048}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classPerson_1_1MyPerson_ac73fdaf279d3bcea91227865b1a032f1}{getDir}}(self):}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00049}00049\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00051}00051\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{classPerson_1_1MyPerson_abf6acd4de6a7c6aa1ef02e38523d2d97}{dir}}}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00053}\mbox{\hyperlink{classPerson_1_1MyPerson_a3eed0d003cbfc88be10a813edc1c16df}{00053}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classPerson_1_1MyPerson_a3eed0d003cbfc88be10a813edc1c16df}{getX}}(self):}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00054}00054\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00056}00056\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{classPerson_1_1MyPerson_a2e75047ed687369021fe32f8836952b7}{x}}}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00058}\mbox{\hyperlink{classPerson_1_1MyPerson_a645edc63042e60c2e02df95a3026c7a1}{00058}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classPerson_1_1MyPerson_a645edc63042e60c2e02df95a3026c7a1}{getY}}(self):}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00059}00059\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00061}00061\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{classPerson_1_1MyPerson_a167c176d77115349b2c3d3293d5d3786}{y}}}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00063}\mbox{\hyperlink{classPerson_1_1MyPerson_ab5666e09a3e3782d73c194ff78a68a08}{00063}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classPerson_1_1MyPerson_ab5666e09a3e3782d73c194ff78a68a08}{updateCoords}}(self,\ xn,\ yn):}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00064}00064\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00068}00068\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classPerson_1_1MyPerson_a80bd212772aee9022587a3613adb755e}{age}}\ =\ 0}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00069}00069\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classPerson_1_1MyPerson_aecc6a2c00be4c7ff66659b35a52f2934}{tracks}}\mbox{\hyperlink{classPerson_1_1MyPerson_a5abcc2706d12825c921585f2dc7b8d1d}{tracks}}.append([self.\mbox{\hyperlink{classPerson_1_1MyPerson_a2e75047ed687369021fe32f8836952b7}{x}},\ self.\mbox{\hyperlink{classPerson_1_1MyPerson_a167c176d77115349b2c3d3293d5d3786}{y}}])\ \textcolor{comment}{\#\ Add\ current\ position\ to\ tracks}}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00070}00070\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classPerson_1_1MyPerson_a2e75047ed687369021fe32f8836952b7}{x}}\ =\ xn}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00071}00071\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classPerson_1_1MyPerson_a167c176d77115349b2c3d3293d5d3786}{y}}\ =\ yn}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00073}\mbox{\hyperlink{classPerson_1_1MyPerson_a70db6ab486650f4ed35f9458c4308d44}{00073}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classPerson_1_1MyPerson_a70db6ab486650f4ed35f9458c4308d44}{setDone}}(self):}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00074}00074\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00076}00076\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classPerson_1_1MyPerson_a26593f06fb5ece992a8daccfa44a5d1e}{done}}\ =\ \textcolor{keyword}{True}}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00078}\mbox{\hyperlink{classPerson_1_1MyPerson_a85dde883a5e02e44bc38ed9245e42bb4}{00078}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classPerson_1_1MyPerson_a85dde883a5e02e44bc38ed9245e42bb4}{timedOut}}(self):}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00079}00079\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00081}00081\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{classPerson_1_1MyPerson_a26593f06fb5ece992a8daccfa44a5d1e}{done}}}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00082}00082\ }
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00083}\mbox{\hyperlink{classPerson_1_1MyPerson_aa9d57448242ad9b743c180efa77c8585}{00083}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classPerson_1_1MyPerson_aa9d57448242ad9b743c180efa77c8585}{going\_UP}}(self,\ mid\_start,\ mid\_end):}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00084}00084\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00088}00088\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ len(self.\mbox{\hyperlink{classPerson_1_1MyPerson_aecc6a2c00be4c7ff66659b35a52f2934}{tracks}}\mbox{\hyperlink{classPerson_1_1MyPerson_a5abcc2706d12825c921585f2dc7b8d1d}{tracks}})\ >=\ 2:}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00089}00089\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.\mbox{\hyperlink{classPerson_1_1MyPerson_a2a19eab6bc06f79ff3dbc8fa1697c275}{state}}\ ==\ \textcolor{stringliteral}{'0'}:}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00090}00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.\mbox{\hyperlink{classPerson_1_1MyPerson_aecc6a2c00be4c7ff66659b35a52f2934}{tracks}}\mbox{\hyperlink{classPerson_1_1MyPerson_a5abcc2706d12825c921585f2dc7b8d1d}{tracks}}[-\/1][1]\ <\ mid\_end\ \textcolor{keywordflow}{and}\ self.\mbox{\hyperlink{classPerson_1_1MyPerson_aecc6a2c00be4c7ff66659b35a52f2934}{tracks}}\mbox{\hyperlink{classPerson_1_1MyPerson_a5abcc2706d12825c921585f2dc7b8d1d}{tracks}}[-\/2][1]\ >=\ mid\_end:}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classPerson_1_1MyPerson_a2a19eab6bc06f79ff3dbc8fa1697c275}{state}}\ =\ \textcolor{stringliteral}{'1'}}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classPerson_1_1MyPerson_abf6acd4de6a7c6aa1ef02e38523d2d97}{dir}}\ =\ \textcolor{stringliteral}{'up'}}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{True}}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00094}00094\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{False}}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00095}00095\ }
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00096}\mbox{\hyperlink{classPerson_1_1MyPerson_a9f7fa0b9121884fd378764650e85fd80}{00096}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classPerson_1_1MyPerson_a9f7fa0b9121884fd378764650e85fd80}{going\_DOWN}}(self,\ mid\_start,\ mid\_end):}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00097}00097\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00101}00101\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ len(self.\mbox{\hyperlink{classPerson_1_1MyPerson_aecc6a2c00be4c7ff66659b35a52f2934}{tracks}}\mbox{\hyperlink{classPerson_1_1MyPerson_a5abcc2706d12825c921585f2dc7b8d1d}{tracks}})\ >=\ 2:}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00102}00102\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.\mbox{\hyperlink{classPerson_1_1MyPerson_a2a19eab6bc06f79ff3dbc8fa1697c275}{state}}\ ==\ \textcolor{stringliteral}{'0'}:}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00103}00103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.\mbox{\hyperlink{classPerson_1_1MyPerson_aecc6a2c00be4c7ff66659b35a52f2934}{tracks}}\mbox{\hyperlink{classPerson_1_1MyPerson_a5abcc2706d12825c921585f2dc7b8d1d}{tracks}}[-\/1][1]\ >\ mid\_start\ \textcolor{keywordflow}{and}\ self.\mbox{\hyperlink{classPerson_1_1MyPerson_aecc6a2c00be4c7ff66659b35a52f2934}{tracks}}\mbox{\hyperlink{classPerson_1_1MyPerson_a5abcc2706d12825c921585f2dc7b8d1d}{tracks}}[-\/2][1]\ <=\ mid\_start:}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00104}00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classPerson_1_1MyPerson_a2a19eab6bc06f79ff3dbc8fa1697c275}{state}}\ =\ \textcolor{stringliteral}{'1'}}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00105}00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classPerson_1_1MyPerson_abf6acd4de6a7c6aa1ef02e38523d2d97}{dir}}\ =\ \textcolor{stringliteral}{'down'}}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00106}00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{True}}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00107}00107\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{False}}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00108}00108\ }
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00109}\mbox{\hyperlink{classPerson_1_1MyPerson_a35ccb14d1fe2ee4b68fc4a6979d40286}{00109}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classPerson_1_1MyPerson_a35ccb14d1fe2ee4b68fc4a6979d40286}{age\_one}}(self):}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00110}00110\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00113}00113\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classPerson_1_1MyPerson_a80bd212772aee9022587a3613adb755e}{age}}\ +=\ 1}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00114}00114\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.\mbox{\hyperlink{classPerson_1_1MyPerson_a80bd212772aee9022587a3613adb755e}{age}}\ >\ self.\mbox{\hyperlink{classPerson_1_1MyPerson_a41bf4e40f85acd3d4ebcfc2affedcfe3}{max\_age}}:}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00115}00115\ \ \ \ \ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classPerson_1_1MyPerson_a26593f06fb5ece992a8daccfa44a5d1e}{done}}\ =\ \textcolor{keyword}{True}}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00116}00116\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{True}}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00117}00117\ }
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00118}00118\ }
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00119}\mbox{\hyperlink{classPerson_1_1MultiPerson}{00119}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classPerson_1_1MultiPerson}{MultiPerson}}:}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00120}00120\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00121}00121\ }
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00122}\mbox{\hyperlink{classPerson_1_1MultiPerson_a68e820c9bc5780d30841690b46558f0a}{00122}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classPerson_1_1MultiPerson_a68e820c9bc5780d30841690b46558f0a}{\_\_init\_\_}}(self,\ persons,\ xi,\ yi):}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00123}00123\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00128}\mbox{\hyperlink{classPerson_1_1MultiPerson_ad17da84d852bb28662b6250efed82173}{00128}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classPerson_1_1MultiPerson_ad17da84d852bb28662b6250efed82173}{persons}}\ =\ persons\ \ \ \textcolor{comment}{\#\ List\ of\ person\ instances\ in\ the\ group}}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00129}\mbox{\hyperlink{classPerson_1_1MultiPerson_a0e70458471df6e9764a4b9f9c7f84a5a}{00129}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classPerson_1_1MultiPerson_a0e70458471df6e9764a4b9f9c7f84a5a}{x}}\ =\ xi\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ X-\/coordinate\ of\ the\ group}}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00130}\mbox{\hyperlink{classPerson_1_1MultiPerson_a10cccec8926add38feb1dd3daf19d5e6}{00130}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classPerson_1_1MultiPerson_a10cccec8926add38feb1dd3daf19d5e6}{y}}\ =\ yi\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Y-\/coordinate\ of\ the\ group}}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00131}\mbox{\hyperlink{classPerson_1_1MultiPerson_ab6294c87f4f9f1f7d77151375f1232f2}{00131}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classPerson_1_1MultiPerson_ab6294c87f4f9f1f7d77151375f1232f2}{tracks}}\ =\ []\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Track\ movement\ history\ of\ the\ group}}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00132}\mbox{\hyperlink{classPerson_1_1MultiPerson_ac045b84f93a30bdbfd92c4b436e7c2ec}{00132}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classPerson_1_1MultiPerson_ac045b84f93a30bdbfd92c4b436e7c2ec}{R}}\ =\ randint(0,\ 255)\ \textcolor{comment}{\#\ Random\ color\ assigned\ to\ the\ group\ for\ identification}}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00133}\mbox{\hyperlink{classPerson_1_1MultiPerson_ac44b8a55671e2720340f16a3e4af0281}{00133}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classPerson_1_1MultiPerson_ac44b8a55671e2720340f16a3e4af0281}{G}}\ =\ randint(0,\ 255)}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00134}\mbox{\hyperlink{classPerson_1_1MultiPerson_aa9c8619e9a075ed944bcd6508b482f83}{00134}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classPerson_1_1MultiPerson_aa9c8619e9a075ed944bcd6508b482f83}{B}}\ =\ randint(0,\ 255)}
+\DoxyCodeLine{\Hypertarget{Person_8py_source_l00135}\mbox{\hyperlink{classPerson_1_1MultiPerson_a5f24028872d7772e43fa4771ef26880a}{00135}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classPerson_1_1MultiPerson_a5f24028872d7772e43fa4771ef26880a}{done}}\ =\ \textcolor{keyword}{False}\ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Flag\ to\ mark\ if\ tracking\ of\ the\ group\ is\ done}}
+
+\end{DoxyCode}

@@ -1,0 +1,28 @@
+# Sensor libraries
+Adafruit-Blinka==8.27.0  # Compatibility layer between Python and microcontrollers
+adafruit-circuitpython-busdevice==5.2.6  # Bus device management for CircuitPython
+adafruit-circuitpython-requests==2.0.3  # HTTP requests library for CircuitPython
+adafruit-circuitpython-scd4x==1.4.2  # Library for SCD4x CO2 sensors
+adafruit-circuitpython-typing==1.9.6  # Typing extensions for CircuitPython
+Adafruit-PlatformDetect==3.57.0  # Detects the platform in the Adafruit ecosystem
+Adafruit-PureIO==1.1.11  # Pure Python IO implementation (SPI/I2C)
+
+# General utilities
+board==1.0  # Access to hardware pins
+contourpy==1.2.0  # Contour calculations
+cycler==0.12.1  # Cycling iterators for styling plots in Matplotlib
+fonttools==4.47.0  # Library for manipulating fonts, used by Matplotlib
+kiwisolver==1.4.5  # Constraint solver for Matplotlib layout management
+matplotlib==3.8.2  # Comprehensive library for creating visualizations
+numpy==1.26.2  # Fundamental package for numerical computations
+opencv-python==4.8.1.78  # Bindings for the OpenCV library for computer vision
+packaging==23.2  # Core utilities for Python packages
+Pillow==10.1.0  # Python Imaging Library for image processing
+pyftdi==0.55.0  # Python interface to FTDI devices
+pyparsing==3.1.1  # Parsing module used by Matplotlib for structured text data
+pyserial==3.5  # Python Serial Port Extension
+python-dateutil==2.8.2  # Extensions to the standard Python datetime module
+pyusb==1.2.1  # USB communication for Python
+rssi==1.0.2  # Interface with network interfaces to obtain RSSI
+six==1.16.0  # Python 2 and 3 compatibility library
+typing_extensions==4.9.0  # Backported and experimental type hints for Python

@@ -1,0 +1,55 @@
+\doxysection{compact-\/ariel-\/system/sensor/store\+\_\+sensor\+\_\+data.py File Reference}
+\hypertarget{store__sensor__data_8py}{}\label{store__sensor__data_8py}\index{compact-\/ariel-\/system/sensor/store\_sensor\_data.py@{compact-\/ariel-\/system/sensor/store\_sensor\_data.py}}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacestore__sensor__data}{store\+\_\+sensor\+\_\+data}}
+\item 
+namespace \mbox{\hyperlink{namespaceenvironmental__monitoring}{environmental\+\_\+monitoring}}
+\begin{DoxyCompactList}\small\item\em This script interfaces with various sensors and the Google Sheets API to read sensor data, process it, and then append it to a spreadsheet. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacestore__sensor__data_a7d29dbd368876031e984e2f768812808}{store\+\_\+sensor\+\_\+data.\+append\+\_\+values}} (spreadsheet\+\_\+id, range\+\_\+name, value\+\_\+input\+\_\+option, \+\_\+values, \mbox{\hyperlink{namespacestore__sensor__data_a8320cde1ad26f3101a608ea7e5b01c15}{creds}})
+\begin{DoxyCompactList}\small\item\em Appends the final data row in the Google Sheets. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacestore__sensor__data_a934c2cac1ac65dc25c13c52a54d5836a}{store\+\_\+sensor\+\_\+data.\+initialize\+\_\+thermal\+\_\+sensor}} (\mbox{\hyperlink{namespacestore__sensor__data_addfee28075d1b11aba375b6f6e430d13}{i2c}})
+\begin{DoxyCompactList}\small\item\em Initializes the MLX90640 thermal sensor with default configuration. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+str \mbox{\hyperlink{namespacestore__sensor__data_aebd1dc5a480e7b8b18df38a99865ec36}{store\+\_\+sensor\+\_\+data.\+SAMPLE\+\_\+\+SPREADSHEET\+\_\+\+ID}} = \textquotesingle{}your\+\_\+sheet\+\_\+id\textquotesingle{}
+\item 
+str \mbox{\hyperlink{namespacestore__sensor__data_aae090abef7525b751e8608ff9ba199cf}{store\+\_\+sensor\+\_\+data.\+SAMPLE\+\_\+\+RANGE\+\_\+\+NAME}} = \textquotesingle{}Sheet1!\+A\+:H\textquotesingle{}
+\item 
+list \mbox{\hyperlink{namespacestore__sensor__data_adf68962a7719646ff6f651980c06705f}{store\+\_\+sensor\+\_\+data.\+scope}} = \mbox{[}\textquotesingle{}https\+://www.\+googleapis.\+com/auth/spreadsheets\textquotesingle{}\mbox{]}
+\item 
+\mbox{\hyperlink{namespacestore__sensor__data_a8320cde1ad26f3101a608ea7e5b01c15}{store\+\_\+sensor\+\_\+data.\+creds}} = None
+\begin{DoxyCompactList}\small\item\em Authenticates the user with Google Sheets API using OAuth 2.\+0. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacestore__sensor__data_a08fe9455760539e4b757c83e612abf1c}{store\+\_\+sensor\+\_\+data.\+flow}}
+\item 
+\mbox{\hyperlink{namespacestore__sensor__data_a4eb1d0653e9b82911473b7278c92a990}{store\+\_\+sensor\+\_\+data.\+service}} = build(\textquotesingle{}sheets\textquotesingle{}, \textquotesingle{}v4\textquotesingle{}, credentials=\mbox{\hyperlink{namespacestore__sensor__data_a8320cde1ad26f3101a608ea7e5b01c15}{creds}})
+\begin{DoxyCompactList}\small\item\em Main code block. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacestore__sensor__data_addfee28075d1b11aba375b6f6e430d13}{store\+\_\+sensor\+\_\+data.\+i2c}} = busio.\+I2C(board.\+SCL, board.\+SDA, frequency=800000)
+\item 
+\mbox{\hyperlink{namespacestore__sensor__data_a2592746a1d3b28d557351a7cced3a17f}{store\+\_\+sensor\+\_\+data.\+other\+\_\+i2c}} = busio.\+I2C(board.\+SCL, board.\+SDA)
+\item 
+\mbox{\hyperlink{namespacestore__sensor__data_a3fc830bda9f4a247a0a88d787ff07894}{store\+\_\+sensor\+\_\+data.\+scd4x}} = adafruit\+\_\+scd4x.\+SCD4X(\mbox{\hyperlink{namespacestore__sensor__data_addfee28075d1b11aba375b6f6e430d13}{i2c}})
+\item 
+\mbox{\hyperlink{namespacestore__sensor__data_a473f9939538a3710872920cf4947ad1e}{store\+\_\+sensor\+\_\+data.\+thermal\+\_\+sensor}} = \mbox{\hyperlink{namespacestore__sensor__data_a934c2cac1ac65dc25c13c52a54d5836a}{initialize\+\_\+thermal\+\_\+sensor}}(\mbox{\hyperlink{namespacestore__sensor__data_addfee28075d1b11aba375b6f6e430d13}{i2c}})
+\item 
+\mbox{\hyperlink{namespacestore__sensor__data_aea5ed13b6a7cdd9fc6802367e1e34605}{store\+\_\+sensor\+\_\+data.\+ap\+\_\+dict}} = get\+\_\+closest\+\_\+ap()
+\item 
+\mbox{\hyperlink{namespacestore__sensor__data_abb442a86f256f79df13d913ddddd8b75}{store\+\_\+sensor\+\_\+data.\+building}}
+\item 
+\mbox{\hyperlink{namespacestore__sensor__data_aca32bdaea50b28d4467094a9761ceeba}{store\+\_\+sensor\+\_\+data.\+floor}}
+\item 
+\mbox{\hyperlink{namespacestore__sensor__data_a5c7e5045da2650480517ecef2c18972c}{store\+\_\+sensor\+\_\+data.\+room}}
+\item 
+\mbox{\hyperlink{namespacestore__sensor__data_a408d2a82f83b3a45cb56ed41a7295330}{store\+\_\+sensor\+\_\+data.\+occupant}} = get\+\_\+occupancy\+\_\+count(\mbox{\hyperlink{namespacestore__sensor__data_a473f9939538a3710872920cf4947ad1e}{thermal\+\_\+sensor}}, save\+\_\+image=True)
+\item 
+list \mbox{\hyperlink{namespacestore__sensor__data_a83967afc98c16cbd23a871bfe8ee9e21}{store\+\_\+sensor\+\_\+data.\+values}} = \mbox{[}\mbox{[}str(datetime.\+datetime.\+now()), \mbox{\hyperlink{namespacestore__sensor__data_abb442a86f256f79df13d913ddddd8b75}{building}}, \mbox{\hyperlink{namespacestore__sensor__data_aca32bdaea50b28d4467094a9761ceeba}{floor}}, \mbox{\hyperlink{namespacestore__sensor__data_a5c7e5045da2650480517ecef2c18972c}{room}}, scd4x.\+CO2, scd4x.\+temperature, scd4x.\+relative\+\_\+humidity, \mbox{\hyperlink{namespacestore__sensor__data_a408d2a82f83b3a45cb56ed41a7295330}{occupant}}\mbox{]}\mbox{]}
+\item 
+\mbox{\hyperlink{namespacestore__sensor__data_addf9c66724ef271da43839a6541dec07}{store\+\_\+sensor\+\_\+data.\+sheet}} = service.\+spreadsheets()
+\item 
+list \mbox{\hyperlink{namespacestore__sensor__data_acddce4f926939f16025a4c869ccd0f43}{store\+\_\+sensor\+\_\+data.\+result}}
+\end{DoxyCompactItemize}

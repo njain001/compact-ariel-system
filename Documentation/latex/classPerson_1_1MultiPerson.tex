@@ -1,0 +1,165 @@
+\doxysection{Person.\+Multi\+Person Class Reference}
+\hypertarget{classPerson_1_1MultiPerson}{}\label{classPerson_1_1MultiPerson}\index{Person.MultiPerson@{Person.MultiPerson}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classPerson_1_1MultiPerson_a68e820c9bc5780d30841690b46558f0a}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \mbox{\hyperlink{classPerson_1_1MultiPerson_ad17da84d852bb28662b6250efed82173}{persons}}, xi, yi)
+\begin{DoxyCompactList}\small\item\em A class for tracking a group of persons, managing them as a single entity. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classPerson_1_1MultiPerson_ad17da84d852bb28662b6250efed82173}{persons}}
+\begin{DoxyCompactList}\small\item\em Constructor for initializing a group of persons. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classPerson_1_1MultiPerson_a0e70458471df6e9764a4b9f9c7f84a5a}{x}}
+\item 
+\mbox{\hyperlink{classPerson_1_1MultiPerson_a10cccec8926add38feb1dd3daf19d5e6}{y}}
+\item 
+\mbox{\hyperlink{classPerson_1_1MultiPerson_ab6294c87f4f9f1f7d77151375f1232f2}{tracks}}
+\item 
+\mbox{\hyperlink{classPerson_1_1MultiPerson_ac045b84f93a30bdbfd92c4b436e7c2ec}{R}}
+\item 
+\mbox{\hyperlink{classPerson_1_1MultiPerson_ac44b8a55671e2720340f16a3e4af0281}{G}}
+\item 
+\mbox{\hyperlink{classPerson_1_1MultiPerson_aa9c8619e9a075ed944bcd6508b482f83}{B}}
+\item 
+\mbox{\hyperlink{classPerson_1_1MultiPerson_a5f24028872d7772e43fa4771ef26880a}{done}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{Person_8py_source_l00119}{119}} of file \mbox{\hyperlink{Person_8py_source}{Person.\+py}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classPerson_1_1MultiPerson_a68e820c9bc5780d30841690b46558f0a}\label{classPerson_1_1MultiPerson_a68e820c9bc5780d30841690b46558f0a} 
+\index{Person.MultiPerson@{Person.MultiPerson}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!Person.MultiPerson@{Person.MultiPerson}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily Person.\+Multi\+Person.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{persons,  }\item[{}]{xi,  }\item[{}]{yi }\end{DoxyParamCaption})}
+
+
+
+A class for tracking a group of persons, managing them as a single entity. 
+
+
+
+Definition at line \mbox{\hyperlink{Person_8py_source_l00122}{122}} of file \mbox{\hyperlink{Person_8py_source}{Person.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keyword}{def\ }\_\_init\_\_(self,\ persons,\ xi,\ yi):}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ self.persons\ =\ persons\ \ \ \textcolor{comment}{\#\ List\ of\ person\ instances\ in\ the\ group}}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ self.x\ =\ xi\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ X-\/coordinate\ of\ the\ group}}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ self.y\ =\ yi\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Y-\/coordinate\ of\ the\ group}}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ self.tracks\ =\ []\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Track\ movement\ history\ of\ the\ group}}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ self.R\ =\ randint(0,\ 255)\ \textcolor{comment}{\#\ Random\ color\ assigned\ to\ the\ group\ for\ identification}}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ self.G\ =\ randint(0,\ 255)}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ self.B\ =\ randint(0,\ 255)}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ self.done\ =\ \textcolor{keyword}{False}\ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Flag\ to\ mark\ if\ tracking\ of\ the\ group\ is\ done}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classPerson_1_1MultiPerson_aa9c8619e9a075ed944bcd6508b482f83}\label{classPerson_1_1MultiPerson_aa9c8619e9a075ed944bcd6508b482f83} 
+\index{Person.MultiPerson@{Person.MultiPerson}!B@{B}}
+\index{B@{B}!Person.MultiPerson@{Person.MultiPerson}}
+\doxysubsubsection{\texorpdfstring{B}{B}}
+{\footnotesize\ttfamily Person.\+Multi\+Person.\+B}
+
+
+
+Definition at line \mbox{\hyperlink{Person_8py_source_l00134}{134}} of file \mbox{\hyperlink{Person_8py_source}{Person.\+py}}.
+
+\Hypertarget{classPerson_1_1MultiPerson_a5f24028872d7772e43fa4771ef26880a}\label{classPerson_1_1MultiPerson_a5f24028872d7772e43fa4771ef26880a} 
+\index{Person.MultiPerson@{Person.MultiPerson}!done@{done}}
+\index{done@{done}!Person.MultiPerson@{Person.MultiPerson}}
+\doxysubsubsection{\texorpdfstring{done}{done}}
+{\footnotesize\ttfamily Person.\+Multi\+Person.\+done}
+
+
+
+Definition at line \mbox{\hyperlink{Person_8py_source_l00135}{135}} of file \mbox{\hyperlink{Person_8py_source}{Person.\+py}}.
+
+\Hypertarget{classPerson_1_1MultiPerson_ac44b8a55671e2720340f16a3e4af0281}\label{classPerson_1_1MultiPerson_ac44b8a55671e2720340f16a3e4af0281} 
+\index{Person.MultiPerson@{Person.MultiPerson}!G@{G}}
+\index{G@{G}!Person.MultiPerson@{Person.MultiPerson}}
+\doxysubsubsection{\texorpdfstring{G}{G}}
+{\footnotesize\ttfamily Person.\+Multi\+Person.\+G}
+
+
+
+Definition at line \mbox{\hyperlink{Person_8py_source_l00133}{133}} of file \mbox{\hyperlink{Person_8py_source}{Person.\+py}}.
+
+\Hypertarget{classPerson_1_1MultiPerson_ad17da84d852bb28662b6250efed82173}\label{classPerson_1_1MultiPerson_ad17da84d852bb28662b6250efed82173} 
+\index{Person.MultiPerson@{Person.MultiPerson}!persons@{persons}}
+\index{persons@{persons}!Person.MultiPerson@{Person.MultiPerson}}
+\doxysubsubsection{\texorpdfstring{persons}{persons}}
+{\footnotesize\ttfamily Person.\+Multi\+Person.\+persons}
+
+
+
+Constructor for initializing a group of persons. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em persons} & A list of My\+Person instances representing the individuals in the group. \\
+\hline
+{\em xi} & Integer representing the initial X-\/coordinate of the group. \\
+\hline
+{\em yi} & Integer representing the initial Y-\/coordinate of the group. The constructor initializes the Multi\+Person with a list of persons and initial coordinates. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{Person_8py_source_l00128}{128}} of file \mbox{\hyperlink{Person_8py_source}{Person.\+py}}.
+
+\Hypertarget{classPerson_1_1MultiPerson_ac045b84f93a30bdbfd92c4b436e7c2ec}\label{classPerson_1_1MultiPerson_ac045b84f93a30bdbfd92c4b436e7c2ec} 
+\index{Person.MultiPerson@{Person.MultiPerson}!R@{R}}
+\index{R@{R}!Person.MultiPerson@{Person.MultiPerson}}
+\doxysubsubsection{\texorpdfstring{R}{R}}
+{\footnotesize\ttfamily Person.\+Multi\+Person.\+R}
+
+
+
+Definition at line \mbox{\hyperlink{Person_8py_source_l00132}{132}} of file \mbox{\hyperlink{Person_8py_source}{Person.\+py}}.
+
+\Hypertarget{classPerson_1_1MultiPerson_ab6294c87f4f9f1f7d77151375f1232f2}\label{classPerson_1_1MultiPerson_ab6294c87f4f9f1f7d77151375f1232f2} 
+\index{Person.MultiPerson@{Person.MultiPerson}!tracks@{tracks}}
+\index{tracks@{tracks}!Person.MultiPerson@{Person.MultiPerson}}
+\doxysubsubsection{\texorpdfstring{tracks}{tracks}}
+{\footnotesize\ttfamily Person.\+Multi\+Person.\+tracks}
+
+
+
+Definition at line \mbox{\hyperlink{Person_8py_source_l00131}{131}} of file \mbox{\hyperlink{Person_8py_source}{Person.\+py}}.
+
+\Hypertarget{classPerson_1_1MultiPerson_a0e70458471df6e9764a4b9f9c7f84a5a}\label{classPerson_1_1MultiPerson_a0e70458471df6e9764a4b9f9c7f84a5a} 
+\index{Person.MultiPerson@{Person.MultiPerson}!x@{x}}
+\index{x@{x}!Person.MultiPerson@{Person.MultiPerson}}
+\doxysubsubsection{\texorpdfstring{x}{x}}
+{\footnotesize\ttfamily Person.\+Multi\+Person.\+x}
+
+
+
+Definition at line \mbox{\hyperlink{Person_8py_source_l00129}{129}} of file \mbox{\hyperlink{Person_8py_source}{Person.\+py}}.
+
+\Hypertarget{classPerson_1_1MultiPerson_a10cccec8926add38feb1dd3daf19d5e6}\label{classPerson_1_1MultiPerson_a10cccec8926add38feb1dd3daf19d5e6} 
+\index{Person.MultiPerson@{Person.MultiPerson}!y@{y}}
+\index{y@{y}!Person.MultiPerson@{Person.MultiPerson}}
+\doxysubsubsection{\texorpdfstring{y}{y}}
+{\footnotesize\ttfamily Person.\+Multi\+Person.\+y}
+
+
+
+Definition at line \mbox{\hyperlink{Person_8py_source_l00130}{130}} of file \mbox{\hyperlink{Person_8py_source}{Person.\+py}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+compact-\/ariel-\/system/sensor/\mbox{\hyperlink{Person_8py}{Person.\+py}}\end{DoxyCompactItemize}

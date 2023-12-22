@@ -1,0 +1,104 @@
+\doxysection{occupancy.\+py}
+\hypertarget{occupancy_8py_source}{}\label{occupancy_8py_source}\index{compact-\/ariel-\/system/sensor/occupancy.py@{compact-\/ariel-\/system/sensor/occupancy.py}}
+\mbox{\hyperlink{occupancy_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00001}\mbox{\hyperlink{namespaceoccupancy}{00001}}\ }
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00005}00005\ \textcolor{keyword}{import}\ cv2\ \textcolor{keyword}{as}\ cv\ \ }
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00006}00006\ \textcolor{keyword}{import}\ numpy\ \textcolor{keyword}{as}\ np\ \ }
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00007}00007\ \textcolor{keyword}{import}\ time\ \ }
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00008}00008\ \textcolor{keyword}{import}\ Person\ \ }
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00009}00009\ \textcolor{keyword}{import}\ matplotlib.pyplot\ \textcolor{keyword}{as}\ plt\ \ }
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00010}00010\ \textcolor{keyword}{import}\ busio\ \ }
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00011}00011\ \textcolor{keyword}{import}\ board\ \ }
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00012}00012\ \textcolor{keyword}{import}\ os\ \ }
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00013}00013\ \textcolor{keyword}{import}\ datetime\ \ }
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00018}\mbox{\hyperlink{namespaceoccupancy_a1054a1747141c85f74c238e49ad6ce6f}{00018}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespaceoccupancy_a1054a1747141c85f74c238e49ad6ce6f}{read\_thermal\_sensor\_data}}(sensor):}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00019}00019\ \ \ \ \ frame\ =\ [0]\ *\ 768\ \ \textcolor{comment}{\#\ Initialize\ frame\ array\ for\ sensor\ data\ (assuming\ 768\ data\ points)}}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00020}00020\ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00021}00021\ \ \ \ \ \ \ \ \ sensor.getFrame(frame)\ \ \textcolor{comment}{\#\ Attempt\ to\ read\ data\ from\ the\ sensor}}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00022}00022\ \ \ \ \ \textcolor{keywordflow}{except}\ ValueError:}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00023}00023\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ In\ case\ of\ a\ read\ error,\ retry\ once}}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00024}00024\ \ \ \ \ \ \ \ \ sensor.getFrame(frame)}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00025}00025\ \ \ \ \ \textcolor{keywordflow}{return}\ frame\ \ \textcolor{comment}{\#\ Return\ the\ captured\ frame\ data}}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00030}\mbox{\hyperlink{namespaceoccupancy_a6490e404d1bb6be79ad043fb04530033}{00030}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespaceoccupancy_a6490e404d1bb6be79ad043fb04530033}{process\_ir\_data}}(frame):}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00031}00031\ \ \ \ \ \textcolor{comment}{\#\ Reshape\ the\ IR\ data\ into\ a\ 24x32\ array\ (assumed\ sensor\ resolution)}}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00032}00032\ \ \ \ \ ir\_array\ =\ np.array(frame).reshape(24,\ 32)}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00033}00033\ \ \ \ \ \textcolor{comment}{\#\ Normalize\ the\ IR\ data\ for\ uniform\ intensity\ distribution}}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00034}00034\ \ \ \ \ normalized\_ir\ =\ cv.normalize(ir\_array,\ \textcolor{keywordtype}{None},\ 0,\ 255,\ cv.NORM\_MINMAX)}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00035}00035\ \ \ \ \ \textcolor{comment}{\#\ Convert\ normalized\ data\ to\ 8-\/bit\ for\ image\ processing}}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00036}00036\ \ \ \ \ converted\_ir\ =\ np.uint8(normalized\_ir)}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00037}00037\ \ \ \ \ \textcolor{keywordflow}{return}\ converted\_ir}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00044}\mbox{\hyperlink{namespaceoccupancy_ad2fce878455928ee635cbe1c4fa68de0}{00044}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespaceoccupancy_ad2fce878455928ee635cbe1c4fa68de0}{detect\_and\_track\_persons}}(frame,\ cnt\_up=0,\ cnt\_down=0):}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00045}00045\ \ \ \ \ \textcolor{comment}{\#\ Define\ frame\ dimensions\ and\ threshold\ area\ for\ detection}}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00046}00046\ \ \ \ \ h,\ w\ =\ 24,\ 32}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00047}00047\ \ \ \ \ frameArea\ =\ h\ *\ w}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00048}00048\ \ \ \ \ areaTH\ =\ frameArea\ /\ 250}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00050}00050\ \ \ \ \ \textcolor{comment}{\#\ Define\ lines\ for\ counting\ entry\ and\ exit}}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00051}00051\ \ \ \ \ line\_up\ =\ int(2\ *\ (h\ /\ 5))}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00052}00052\ \ \ \ \ line\_down\ =\ int(3\ *\ (h\ /\ 5))}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00053}00053\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00054}00054\ \ \ \ \ \textcolor{comment}{\#\ Apply\ binary\ thresholding\ to\ find\ hot\ spots\ (potential\ persons)}}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00055}00055\ \ \ \ \ \_,\ thresh\ =\ cv.threshold(frame,\ 200,\ 255,\ cv.THRESH\_BINARY)}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00057}00057\ \ \ \ \ \textcolor{comment}{\#\ Find\ contours\ in\ the\ thresholded\ image}}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00058}00058\ \ \ \ \ contours,\ \_\ =\ cv.findContours(thresh,\ cv.RETR\_TREE,\ cv.CHAIN\_APPROX\_SIMPLE)}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00060}00060\ \ \ \ \ \textcolor{comment}{\#\ Process\ each\ detected\ contour}}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00061}00061\ \ \ \ \ \textcolor{keywordflow}{for}\ contour\ \textcolor{keywordflow}{in}\ contours:}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00062}00062\ \ \ \ \ \ \ \ \ M\ =\ cv.moments(contour)\ \ \textcolor{comment}{\#\ Calculate\ moments\ for\ contour}}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00063}00063\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ M[\textcolor{stringliteral}{'m00'}]\ !=\ 0:\ \ \textcolor{comment}{\#\ Check\ for\ division\ by\ zero}}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00064}00064\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Compute\ centroid\ of\ the\ contour}}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00065}00065\ \ \ \ \ \ \ \ \ \ \ \ \ cx\ =\ int(M[\textcolor{stringliteral}{'m10'}]\ /\ M[\textcolor{stringliteral}{'m00'}])}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00066}00066\ \ \ \ \ \ \ \ \ \ \ \ \ cy\ =\ int(M[\textcolor{stringliteral}{'m01'}]\ /\ M[\textcolor{stringliteral}{'m00'}])}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00067}00067\ }
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00068}00068\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Count\ crossings\ over\ the\ predefined\ lines}}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ cy\ <\ line\_up:}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cnt\_up\ +=\ 1}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{elif}\ cy\ >\ line\_down:}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00072}00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cnt\_down\ +=\ 1}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00073}00073\ }
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00074}00074\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Visualize\ the\ contour\ and\ its\ centroid}}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00075}00075\ \ \ \ \ \ \ \ \ \ \ \ \ cv.drawContours(frame,\ [contour],\ -\/1,\ (0,\ 255,\ 0),\ 3)}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00076}00076\ \ \ \ \ \ \ \ \ \ \ \ \ cv.circle(frame,\ (cx,\ cy),\ 5,\ (0,\ 0,\ 255),\ -\/1)}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00078}00078\ \ \ \ \ \textcolor{keywordflow}{return}\ frame,\ cnt\_up,\ cnt\_down\ \ \textcolor{comment}{\#\ Return\ processed\ frame\ and\ counts}}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00079}00079\ }
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00080}00080\ }
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00084}\mbox{\hyperlink{namespaceoccupancy_aca0ff831a21a23b1b939c46c1725e980}{00084}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespaceoccupancy_aca0ff831a21a23b1b939c46c1725e980}{visualize\_data}}(frame,\ index):}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00085}00085\ \ \ \ \ plt.imshow(frame,\ cmap=\textcolor{stringliteral}{'hot'},\ interpolation=\textcolor{stringliteral}{'nearest'})}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00086}00086\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00087}00087\ \ \ \ \ \textcolor{comment}{\#\ Create\ a\ directory\ for\ saving\ images,\ if\ it\ doesn't\ exist}}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00088}00088\ \ \ \ \ os.makedirs(\textcolor{stringliteral}{'thermal\_images'},\ exist\_ok=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00089}00089\ }
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00090}00090\ \ \ \ \ \textcolor{comment}{\#\ Save\ the\ image\ with\ a\ timestamp\ in\ the\ filename}}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00091}00091\ \ \ \ \ plt.savefig(f\textcolor{stringliteral}{'thermal\_images/thermal\_image\_\{index\}.png'})}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00092}00092\ }
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00093}00093\ \ \ \ \ \textcolor{comment}{\#\ Clear\ the\ figure\ to\ free\ memory\ and\ avoid\ overlap}}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00094}00094\ \ \ \ \ plt.clf()}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00095}00095\ }
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00096}00096\ }
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00100}\mbox{\hyperlink{namespaceoccupancy_a554f5ceafd31673b1bb6897ef5c8b14f}{00100}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespaceoccupancy_a554f5ceafd31673b1bb6897ef5c8b14f}{get\_occupancy\_count}}(sensor,\ save\_image=False):\ \ \ \ }
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00101}00101\ \ \ \ \ \textcolor{comment}{\#\ Read\ and\ process\ data\ from\ the\ IR\ sensor}}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00102}00102\ \ \ \ \ ir\_data\ =\ \mbox{\hyperlink{namespaceoccupancy_a1054a1747141c85f74c238e49ad6ce6f}{read\_thermal\_sensor\_data}}(sensor)}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00103}00103\ \ \ \ \ processed\_frame\ =\ \mbox{\hyperlink{namespaceoccupancy_a6490e404d1bb6be79ad043fb04530033}{process\_ir\_data}}(ir\_data)}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00104}00104\ }
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00105}00105\ \ \ \ \ \textcolor{comment}{\#\ Detect\ and\ track\ persons\ in\ the\ processed\ frame}}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00106}00106\ \ \ \ \ processed\_frame,\ cnt\_up,\ cnt\_down\ =\ \mbox{\hyperlink{namespaceoccupancy_ad2fce878455928ee635cbe1c4fa68de0}{detect\_and\_track\_persons}}(processed\_frame)}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00107}00107\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00108}00108\ \ \ \ \ \textcolor{comment}{\#\ Optionally\ visualize\ and\ save\ the\ processed\ frame}}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00109}00109\ \ \ \ \ \textcolor{keywordflow}{if}\ save\_image:}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00110}00110\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceoccupancy_aca0ff831a21a23b1b939c46c1725e980}{visualize\_data}}(processed\_frame,\ datetime.datetime.now())}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00111}00111\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00112}00112\ \ \ \ \ \textcolor{comment}{\#\ Calculate\ the\ total\ number\ of\ people\ (assuming\ entry-\/exit\ model)}}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00113}00113\ \ \ \ \ total\_people\ =\ abs(cnt\_up\ -\/\ cnt\_down)}
+\DoxyCodeLine{\Hypertarget{occupancy_8py_source_l00114}00114\ \ \ \ \ \textcolor{keywordflow}{return}\ total\_people}
+
+\end{DoxyCode}

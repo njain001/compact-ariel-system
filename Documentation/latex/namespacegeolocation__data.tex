@@ -1,0 +1,90 @@
+\doxysection{geolocation\+\_\+data Namespace Reference}
+\hypertarget{namespacegeolocation__data}{}\label{namespacegeolocation__data}\index{geolocation\_data@{geolocation\_data}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacegeolocation__data_a6b66ab145dba31c43008323bf265e4c6}{get\+\_\+closest\+\_\+ap}} ()
+\begin{DoxyCompactList}\small\item\em Function to receive closest wifi details. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacegeolocation__data_a6b66ab145dba31c43008323bf265e4c6}\label{namespacegeolocation__data_a6b66ab145dba31c43008323bf265e4c6} 
+\index{geolocation\_data@{geolocation\_data}!get\_closest\_ap@{get\_closest\_ap}}
+\index{get\_closest\_ap@{get\_closest\_ap}!geolocation\_data@{geolocation\_data}}
+\doxysubsubsection{\texorpdfstring{get\_closest\_ap()}{get\_closest\_ap()}}
+{\footnotesize\ttfamily geolocation\+\_\+data.\+get\+\_\+closest\+\_\+ap (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Function to receive closest wifi details. 
+
+
+
+Definition at line \mbox{\hyperlink{geolocation__data_8py_source_l00005}{5}} of file \mbox{\hyperlink{geolocation__data_8py_source}{geolocation\+\_\+data.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00005\ \textcolor{keyword}{def\ }get\_closest\_ap():}
+\DoxyCodeLine{00006\ \ \ \ \ }
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keyword}{def\ }getSSID(raw\_cell):}
+\DoxyCodeLine{00010\ \ \ \ \ \ \ \ \ ssid\ =\ raw\_cell.split(\textcolor{stringliteral}{'ESSID:"{}'})[1]}
+\DoxyCodeLine{00011\ \ \ \ \ \ \ \ \ ssid\ =\ ssid.split(\textcolor{stringliteral}{'"{}'})[0]}
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ssid}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \ \ \ \ }
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keyword}{def\ }getMacAddress(raw\_cell):}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ mac\ =\ raw\_cell.split(\textcolor{stringliteral}{'Address:'})[1]}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ mac\ =\ mac.split(\textcolor{stringliteral}{'\ '})[1].replace(\textcolor{stringliteral}{"{}\(\backslash\)\(\backslash\)n"{}},\ \textcolor{stringliteral}{"{}"{}})}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mac}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \ \ }
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{def\ }getQuality(raw\_cell):}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ quality\ =\ raw\_cell.split(\textcolor{stringliteral}{'Quality='})[1]}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ quality\ =\ quality.split(\textcolor{stringliteral}{'\ '})[0]}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ quality}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ }
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{def\ }getSignalLevel(raw\_cell):}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ signal\ =\ raw\_cell.split(\textcolor{stringliteral}{'Signal\ level='})[1]}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ signal\ =\ int(signal.split(\textcolor{stringliteral}{'\ '})[0])}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ signal}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ }
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{def\ }parseCell(raw\_cell):}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ cell\ =\ \{}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'ssid'}:\ getSSID(raw\_cell),}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'quality'}:\ getQuality(raw\_cell),}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'signal'}:\ getSignalLevel(raw\_cell),}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'mac'}:\ getMacAddress(raw\_cell)}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ cell}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ }
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{def\ }formatCells(raw\_cell\_string):}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ raw\_cells\ =\ raw\_cell\_string.split(\textcolor{stringliteral}{'Cell'})\ \textcolor{comment}{\#\ Divide\ raw\ string\ into\ raw\ cells.}}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ raw\_cells.pop(0)\ \textcolor{comment}{\#\ Remove\ unnecessary\ "{}Scan\ Completed"{}\ message.}}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ if(len(raw\_cells)\ >\ 0):\ \textcolor{comment}{\#\ Continue\ execution\ if\ at\ least\ one\ network\ is\ detected.}}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ formatted\_cells\ =\ [parseCell(cell)\ \textcolor{keywordflow}{for}\ cell\ \textcolor{keywordflow}{in}\ raw\_cells]\ \textcolor{comment}{\#\ Parse\ each\ cell\ into\ a\ dictionary.}}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ formatted\_cells}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}Networks\ not\ detected."{}})}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{False}}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00063\ \ \ \ \ obj\ =\ RSSI\_Scan(\textcolor{stringliteral}{'wlan0'})\ \textcolor{comment}{\#\ Object\ for\ scanning\ Wi-\/Fi\ networks.}}
+\DoxyCodeLine{00064\ \ \ \ \ aps\ =\ obj.getRawNetworkScan(\textcolor{keyword}{True})[\textcolor{stringliteral}{'output'}]\ \textcolor{comment}{\#\ Raw\ scan\ data.}}
+\DoxyCodeLine{00065\ \ \ \ \ aps\ =\ formatCells(str(aps))\ \textcolor{comment}{\#\ Formatted\ scan\ data.}}
+\DoxyCodeLine{00066\ \ \ \ \ }
+\DoxyCodeLine{00067\ \ \ \ \ aps\ =\ sorted(aps,\ key=\textcolor{keyword}{lambda}\ k:\ k[\textcolor{stringliteral}{"{}signal"{}}])\ \textcolor{comment}{\#\ Sort\ networks\ by\ signal\ strength.}}
+\DoxyCodeLine{00068\ \ \ \ \ closest\_ap\_location\ =\ \{\}\ \textcolor{comment}{\#\ Dictionary\ to\ hold\ the\ location\ of\ the\ closest\ access\ point.}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{comment}{\#\ Loop\ through\ sorted\ access\ points\ and\ find\ the\ first\ one\ with\ a\ known\ location.}}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ aps:}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ i[\textcolor{stringliteral}{"{}mac"{}}]\ \textcolor{keywordflow}{in}\ data:}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ closest\_ap\_location\ =\ data[i[\textcolor{stringliteral}{"{}mac"{}}]]}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordflow}{return}\ closest\_ap\_location\ \textcolor{comment}{\#\ Return\ the\ location\ of\ the\ closest\ access\ point.}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ }
+
+\end{DoxyCode}
