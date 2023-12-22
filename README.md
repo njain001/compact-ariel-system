@@ -1,5 +1,9 @@
 # compact-ariel-system
-Create 3D model of building integrating room data such as temperature, humidity etc
+<br>
+
+![Ariel System Image](Demo/demo.jpeg "Compact Ariel System")
+
+3D model of building integrating room data such as temperature, humidity etc
 
 ## Sensor Data Acquisition
 Captures the sensor data (co2, humidity, temperature and occupancy count) and store them to the google sheets.
@@ -76,7 +80,3 @@ Scripts are generally used to add functionalities to the game objects . These sc
 
 -  For downloading the Unity onto your device please use this link https://unity.com/download, which will also download VS code if it is not installed before. After downloading the Unity it will ask to even download Unity Hub to create and manage different Unity Projects. After downloading Unity and UnityHub successfully, now create a New Unity Project and create sub folders like Assets. In the Assets folder create sub folders like Model and Scripts and import the files into the folders respectively. 
 -  After setting and following all the steps above, now to is the time to build and run the game. Go to the menu and select Build Option. After selecting build, you will enter into a drop box with options. Select the option ”Build and Run” to save and run the game. If there are no errors the game will run and update the values which is received from the google sheets.
-
-<br>
-
-![Ariel System Image](Demo/demo.jpeg "Compact Ariel System")
