@@ -64,7 +64,7 @@ Once you follow the steps above, you'll find sensor data being captured in your 
 
 ### Creating game objects on the 3d model
 -  The game objects are what will be used to make your model interactive to your inputs.
--  There are 3 game objects mainly that you are needed to create namely Directional lighting, Camera, UserInteractive Canvas InputField.
+-  There are 3 game objects that you are needed to create namely Directional lighting, Camera, UserInteractive Canvas InputField.
 -  #### Directional Lighting:
     It is used to brighten the areas that you want. I have placed 3 Directional Lighting two at the front of the 3d model and one to the side of the building.
 -  #### Camera:
